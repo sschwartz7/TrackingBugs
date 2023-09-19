@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<BTUser> SignInManager
+@inject UserManager<BTUser> UserManager
+@inject IBTRoleService _RoleService
+
+@{
+    BTUser? appUser = await UserManager.GetUserAsync(User);
+}
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div class="dropdown main-profile-menu">
+            <a class="d-flex" href="javascript:void(0)">
+                <span class="main-img-user">
+                    <img alt="avatar"
+                         src="~/assets/img/users/1.jpg">
+                </span>
+            </a>
+            <div class="dropdown-menu">
+                <div class="header-navheading">
+                    <h6 class="main-notification-title">
+                        @appUser?.FullName<h6>
+                            <p class="main-notification-text">@(string.Join(",", await _RoleService.GetUserRolesAsync(appUser)))</p>
+                </div>
+                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">
+                    <i class="fe fe-settings"></i> Account Settings
+                </a>
+                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <i class="fe fe-log-out"></i>Logout
+                </a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
+</ul>

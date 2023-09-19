@@ -1,0 +1,62 @@
+﻿@model List<Project>
+@inject IBTFileService _BTFileService
+@inject IProjectService _ProjectService
+@inject IBTRoleService _RoleService
+@{
+    ViewData["Title"] = "Details";
+
+}
+
+
+
+@foreach (Project project in Model)
+{  
+    BTUser? projectManager = await _ProjectService.GetProjectManagerAsync(project.Id);
+    <div class="card custom-card">
+        <div class="card-header custom-card-header border-bottom-0">
+            <h5 class="main-content-label tx-dark tx-medium mb-0">
+                @if (projectManager != null)
+                {
+                    <div class="fw-medium fs-lg">
+                        @projectManager.FullName
+                    </div>
+                    <div class="text-gray-600 mt-1">Project Manager</div>
+                }
+                else
+                {
+                    <span>No Project Manager...</span>
+                    <span>Yet</span>
+                }
+            </h5>
+        </div>
+        <div class="card-body">
+            <h6 class="">@project.Name</h6>
+            <p class="card-text">@project.Description</p>
+            <div class="w-full row text-gray-600 fs-xs fs-sm-sm text-center p-2">
+                <div class="col-6 border-end"> Developers: <span class="fw-medium">@((await _ProjectService.GetProjectMembersByRoleAsync(project.Id, nameof(BTRoles.Developer), project.CompanyId)).Count)</span></div>
+                <div class="col-6 border-start"> Submitters: <span class="fw-medium">@((await _ProjectService.GetProjectMembersByRoleAsync(project.Id, nameof(BTRoles.Developer), project.CompanyId)).Count)</span> </div>
+            </div>
+            <a asp-action="Details" asp-route-id="@project.Id" class="btn btn-primary ripple btn-block">Details</a>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+
+@section Scripts{
+    <script>
+        $('#projectTable').DataTable({
+            responsive: true,
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: '',
+                lengthMenu: '_MENU_ items/page',
+            }
+        });
+    </script>
+
+}

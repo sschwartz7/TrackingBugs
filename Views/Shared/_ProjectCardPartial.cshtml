@@ -1,0 +1,123 @@
+﻿@model Project
+@inject IBTFileService _BTFileService
+@inject IProjectService _ProjectService
+@inject IBTRoleService _RoleService
+@{
+    ViewData["Title"] = "Details";
+    BTUser? projectManager = await _ProjectService.GetProjectManagerAsync(Model.Id)!;
+}
+
+<div class="card custom-card">
+    <div class="intro-y g-col-12 g-col-md-6 g-col-xl-4 box d-flex flex-column justify-content-between">
+        <div>
+            <div class="d-flex align-items-center border-bottom border-gray-200 dark-border-dark-5 px-5 py-4 h-20">
+                <div class="ms-3 me-auto">
+                    @if (projectManager != null)
+                    {
+                        <div class="fw-medium fs-lg">
+                            @projectManager.FullName
+                        </div>
+                        <div class="text-gray-600 mt-1">Project Manager</div>
+                    }
+                    else
+                    {
+                        <span>No Project Manager...</span>
+                        <span>Yet</span>
+                    }
+                </div>
+                <div class="dropdown ms-3">
+                    <a class="btn btn-primary btn-sm fw-light" href="#">Details</a>
+                    <a href="#" class="dropdown-toggle w-5 h-5 text-gray-600 dark-text-gray-300" aria-expanded="false" data-bs-toggle="dropdown"> </a>
+                    <div class="dropdown-menu w-40">
+                        <ul class="dropdown-content">
+                            <li>
+                                <a> Edit Project </a>
+                            </li>
+                            <li>
+                                <form action="/Projects/Archive/1" method="post">
+                                    <button type="submit" class="dropdown-item">
+                                         Archive Project
+                                    </button>
+                                    <input type="hidden" >
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="p-5">
+                <div class="h-40 h-xxl-56 image-fit d-flex justify-content-center align-items-center">
+                    <h5>Tickets by Status</h5>
+                    <!-- ChartJS: Pie/Doughnut -->
+                    <div class="col-md-12">
+                        <!--  Chart.js Canvas Tag -->
+                        <canvas id="donutChart{$@Model.Id}"></canvas>
+                    </div>
+                </div>
+                <a href="" class="d-block fw-medium fs-base mt-5">@Model.Name</a>
+                <div class="text-gray-700 dark-text-gray-600 mt-2">
+                    @Model.Description
+                </div>
+            </div>
+        </div>
+        <div class="px-5 pt-3 pb-5 border-top border-gray-200 dark-border-dark-5">
+            <div class="w-full row text-gray-600 fs-xs fs-sm-sm text-center">
+                @* <div class="col-6 border-end"> Developers: <span class="fw-medium">@(await (IProjectService.GetProjectMembersByRoleAsync(Model.Id, nameof(BTRoles.Developer), Model.CompanyId).Count))</span></div>
+                <div class="col-6 border-start"> Submitters: <span class="fw-medium">@(await (IProjectService.GetProjectMembersByRoleAsync(Model.Id, nameof(BTRoles.Developer), Model.CompanyId).Count))</span> </div> *@
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Sctipts{
+    <!-- *** Begin Chart JS Pie/Donut *** -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
+    <script>
+
+        var donutChartCanvas = $('#donutChart{$@Model.Id}').get(0).getContext('2d');
+        var donutData = {
+            labels: [
+                '@nameof(BTTicketStatuses.Development)',
+                '@nameof(BTTicketStatuses.New)',
+                '@nameof(BTTicketStatuses.Resolved)',
+                '@nameof(BTTicketStatuses.Testing)'
+            ],
+            datasets: [
+                {
+                    data: [
+        @Model.Tickets.Where(t=> t.TicketStatus.Name == nameof(BTTicketStatuses.Development)).Count(),
+        @Model.Tickets.Where(t=> t.TicketStatus.Name ==nameof(BTTicketStatuses.New)).Count(),
+        @Model.Tickets.Where(t=> t.TicketStatus.Name ==nameof(BTTicketStatuses.Resolved)).Count(),
+        @Model.Tickets.Where(t=> t.TicketStatus.Name ==nameof(BTTicketStatuses.Testing)).Count()
+                                    ],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)'
+                    ]
+                }
+            ]
+        };
+
+        var donutOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+        };
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        new Chart(donutChartCanvas, {
+            type: 'doughnut',
+            data: donutData,
+            options: donutOptions
+        });
+    </script>
+    <!-- *** End Chart JS Donut *** -->
+}
