@@ -71,10 +71,10 @@ namespace TrackingBugs.Controllers
         }
 
         // GET: Projects/Create
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync()
         {
             ViewData["CompanyId"] = new SelectList(_context.Companies, "Id", "Name");
-            ViewData["ProjectPriorityId"] = new SelectList(_context.Set<ProjectPriority>(), "Id", "Name");
+            ViewData["ProjectPriorityId"] = new SelectList((await _projectService.GetProjectPrioritiesAsync()), "Id", "Name");
             return View();
         }
 

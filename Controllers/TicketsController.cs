@@ -257,17 +257,8 @@ namespace TrackingBugs.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Tickets == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.Ticket'  is null.");
-            }
-            var ticket = await _context.Tickets.FindAsync(id);
-            if (ticket != null)
-            {
-                _context.Tickets.Remove(ticket);
-            }
-
-            await _context.SaveChangesAsync();
+            Ticket ticket = await _ticketService.GetTicketByIdAsync(id, _companyId);
+            await _ticketService.ArchiveTicketAsync(ticket);
             return RedirectToAction(nameof(Index));
         }
 

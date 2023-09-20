@@ -34,10 +34,24 @@ namespace TrackingBugs.Services
             try
             {
                 if (notification != null)
-                {
+                { 
                     await _context.AddAsync(notification);
                     await _context.SaveChangesAsync();
                 }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public async Task ViewNotificationAsync(Notification? notification)
+        {
+            try
+            {
+                if (notification == null) { return; }
+                notification.HasBeenViewed = true;
+                await _context.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -82,6 +96,7 @@ namespace TrackingBugs.Services
 
                     notifications = await _context.Notifications
                                                   .Where(n => n.RecipientId == userId || n.SenderId == userId)
+                                                  .Where(n => n.HasBeenViewed == false)
                                                   .Include(n => n.Recipient)
                                                   .Include(n => n.Sender)
                                                   .ToListAsync();

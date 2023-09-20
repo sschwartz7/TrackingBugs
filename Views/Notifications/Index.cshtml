@@ -4,80 +4,187 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<!-- Main Content-->
+<div class="main-content side-content pt-0">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Message)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HasBeenViewed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NotificationType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ticket)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Project)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Recipient)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Message)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HasBeenViewed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NotificationType.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ticket.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Project.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sender.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Recipient.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+    <div class="main-container container-fluid">
+        <div class="inner-body">
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <div>
+                    <h2 class="main-content-title tx-24 mg-b-5">Notifications</h2>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active"><a href="#">Notifications</a></li>
+                    </ol>
+                </div>
+            </div>
+            <!-- End Page Header -->
+            <!-- row -->
+            <div class="row row-sm">
+                <div class="col-xl-3 col-lg-4">
+                    <div class="card custom-card mail-container task-container overflow-hidden">
+                        <div class="">
+                            <div class="p-4 border-bottom">
+                                <a class="btn btn-main-primary btn-block btn-compose" href="mail-compose.html">Compose</a>
+                            </div>
+                            <div class="card-body tab-list-items">
+                                <div class="main-content-left main-content-left-mail">
+                                    <div class="main-mail-menu">
+                                        <nav class="nav main-nav-column mg-b-20">
+                                            <a class="nav-link active" href="">
+                                                <i class="fe fe-mail"></i> Projects <span>20</span>
+                                            </a>
+                                            <a class="nav-link" href="">
+                                                <i class="fe fe-star"></i> Tickets <span>3</span>
+                                            </a>
+                                            <a class="nav-link" href="">
+                                                <i class="fe fe-bookmark"></i> All <span>10</span>
+                                            </a>
+ 
+                                        </nav>
+                                    </div><!-- main-mail-menu -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-8  main-content-body-mail1">
+                    <div class="card custom-card mail-container task-container overflow-hidden">
+                        <div class="inbox-body p-4">
+                            <div class="mail-option">
+                                <div class="chk-all border-0">
+                                    <div class="btn-group">
+                                        <a data-bs-toggle="dropdown" href="#" class="btn mini all" aria-expanded="false">
+                                            All
+                                            <i class="fe fe-chevron-down"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#"> None</a></li>
+                                            <li><a href="#"> Read</a></li>
+                                            <li><a href="#"> Unread</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="#" class="btn mini tooltips">
+                                        <i class="fe fe-refresh-cw"></i>
+                                    </a>
+                                </div>
+                                <div class="btn-group hidden-phone">
+                                    <a data-bs-toggle="dropdown" href="#" class="btn mini blue" aria-expanded="false">
+                                        More
+                                        <i class="fe fe-chevron-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"><i class="fe fe-edit me-2"></i> Mark as Read</a></li>
+                                        <li><a href="#"><i class="fe fe fe-slash me-2"></i> Spam</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#"><i class="fe fe-trash me-2"></i> Delete</a></li>
+                                    </ul>
+                                </div>
+                                <ul class="unstyled inbox-pagination">
+                                    <li><span>1-50 of 234</span></li>
+
+                                    <li>
+                                        <a class="btn np-btn" href="#"><i class="fe fe-chevron-right pagination-right"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table" id="notificationTable">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Title)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Message)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Created)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.HasBeenViewed)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.NotificationType)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Ticket)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Project)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Sender)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Recipient)
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Title)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Message)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Created)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.HasBeenViewed)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.NotificationType.Id)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Ticket.Description)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Project.Description)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Sender.Id)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Recipient.Id)
+                                                </td>
+                                                <td>
+                                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- mail-content -->
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+    </div>
+</div>
+<!-- End Main Content-->
+@section Scripts{
+    <script>
+        $('#notificationTable').DataTable({
+            responsive: true,
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: '',
+                lengthMenu: '_MENU_ items/page',
+            }
+        });
+    </script>
 }
-    </tbody>
-</table>
