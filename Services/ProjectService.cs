@@ -214,7 +214,8 @@ namespace TrackingBugs.Services
                                     .ThenInclude(t => t.History)
                                 .Where(p => p.Company!.Id == companyId)
                                 .Where(p => p.ProjectPriority.Name == priority)
-                                .ToListAsync();
+								.OrderByDescending(b => b.ProjectPriorityId)
+								.ToListAsync();
 
                 return projects!;
             }
@@ -247,7 +248,8 @@ namespace TrackingBugs.Services
                         .ThenInclude(t => t.TicketPriority)
                                 .Where(p => p.Company!.Id == companyId)
                                 .Where(p => p.Archived == false)
-                                .ToListAsync();
+								.OrderByDescending(b => b.ProjectPriorityId)
+								.ToListAsync();
 
                 return projects!;
             }
@@ -257,7 +259,41 @@ namespace TrackingBugs.Services
                 throw;
             }
         }
-        public async Task<List<Project>> GetActiveProjectsByMemberIdAsync(int? companyId, string? memberId)
+		public async Task<Project> GetNewestPriorityProjectByCompanyIdAsync(int? companyId)
+		{
+			Project? project = new Project();
+			if (companyId == null) { return new(); }
+			try
+			{
+				project = await _context.Projects
+								.Include(p => p.Company)
+								.Include(p => p.Members)
+								.Include(p => p.ProjectPriority)
+								.Include(p => p.Tickets)
+									.ThenInclude(t => t.Attachments)
+									.Include(p => p.Tickets)
+								.ThenInclude(t => t.Comments)
+									.ThenInclude(c => c.User)
+								.Include(p => p.Tickets)
+									.ThenInclude(t => t.History)
+								.Include(p => p.Tickets)
+									.ThenInclude(t => t.TicketStatus)
+									.Include(t => t.Tickets)
+						.ThenInclude(t => t.TicketPriority)
+								.Where(p => p.Company!.Id == companyId)
+								.Where(p => p.Archived == false)
+								.OrderByDescending(b => b.Created)
+								.FirstOrDefaultAsync();
+
+				return project!;
+			}
+			catch (Exception)
+			{
+
+				throw;
+			}
+		}
+		public async Task<List<Project>> GetActiveProjectsByMemberIdAsync(int? companyId, string? memberId)
         {
             List<Project>? projects = new List<Project>();
             if (companyId == null) { return new(); }
@@ -617,5 +653,31 @@ namespace TrackingBugs.Services
                 throw;
             }
         }
+
+        public async Task UnarchiveProjectAsync(int? projectId, int? companyId)
+        {
+            if (projectId == null || companyId == null) { return; }
+
+            try
+            {
+                Project project = await GetProjectAsync(projectId, companyId);
+
+                project.Archived = true;
+                foreach (Ticket ticket in project.Tickets)
+                {
+                    ticket.ArchivedByProject = false;
+                    await _context.SaveChangesAsync();
+                }
+                await _context.SaveChangesAsync();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
-}
+
+    }
+

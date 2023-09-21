@@ -28,7 +28,7 @@ namespace TrackingBugs.Services.Interfaces
         public Task ArchiveTicketAsync(Ticket? ticket);
         public Task RestoreTicketAsync(Ticket? ticket);
 
-        public Task<List<string>> GetTicketMembersAsync(int? projectId, int? ticketId, int? companyId)
+        public Task<List<string>> GetTicketMembersAsync(int? projectId, int? ticketId, int? companyId);
 
     }
 }

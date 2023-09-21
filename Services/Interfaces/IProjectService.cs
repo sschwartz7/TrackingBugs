@@ -11,6 +11,8 @@ namespace TrackingBugs.Services.Interfaces
 
         public Task<bool> AddProjectManagerAsync(string? userId, int? projectId);
         public Task ArchiveProjectAsync(int? projectId, int? companyId);
+        public Task UnarchiveProjectAsync(int? projectId, int? companyId);
+
         public Task<List<Project>> GetAllProjectsByCompanyIdAsync(int? companyId);
         public Task<List<Project>> GetActiveProjectsByCompanyIdAsync(int? companyId);
 
@@ -28,6 +30,8 @@ namespace TrackingBugs.Services.Interfaces
         public Task<bool> RemoveMemberFromProjectAsync(BTUser? member, int? projectId);
         public Task RestoreProjectAsync(Project? project, int? companyId);
         public Task UpdateProjectAsync(Project? project, int companyId);
+
+        public Task<Project> GetNewestPriorityProjectByCompanyIdAsync(int? companyId);
 
         public Task<List<Project>> GetAllProjectsByPriorityAsync(int? companyId, string priority);
 

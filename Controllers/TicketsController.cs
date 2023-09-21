@@ -102,6 +102,11 @@ namespace TrackingBugs.Controllers
                 return NotFound();
             }
 
+            ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Description", ticket.ProjectId);
+            ViewData["SubmitterUserId"] = new SelectList(_context.Users, "Id", "FullName", ticket.SubmitterUserId);
+            ViewData["TicketPriorityId"] = new SelectList(_context.Set<TicketPriority>(), "Id", "Name", ticket.TicketPriorityId);
+            ViewData["TicketStatusId"] = new SelectList(_context.Set<TicketStatus>(), "Id", "Name", ticket.TicketStatusId);
+            ViewData["TicketTypeId"] = new SelectList(_context.Set<TicketType>(), "Name", "Id", ticket.TicketTypeId);
             return View(ticket);
         }
 
@@ -179,7 +184,7 @@ namespace TrackingBugs.Controllers
             ViewData["TicketPriorityId"] = new SelectList(_context.Set<TicketPriority>(), "Id", "Name", ticket.TicketPriorityId);
             ViewData["TicketStatusId"] = new SelectList(_context.Set<TicketStatus>(), "Id", "Name", ticket.TicketStatusId);
             ViewData["TicketTypeId"] = new SelectList(_context.Set<TicketType>(), "Name", "Id", ticket.TicketTypeId);
-            return View(ticket);
+            return View( ticket);
         }
 
         // POST: Tickets/Edit/5
@@ -252,13 +257,13 @@ namespace TrackingBugs.Controllers
                 return NotFound();
             }
 
-            return View(ticket);
+            return View(nameof(Details), ticket);
         }
 
         // POST: Tickets/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Archive(int id)
         {
             Ticket ticket = await _ticketService.GetTicketByIdAsync(id, _companyId);
             await _ticketService.ArchiveTicketAsync(ticket);
@@ -361,7 +366,7 @@ namespace TrackingBugs.Controllers
                 //Add Notificaiton
                 await _notificationService.NewDeveloperNotificationAsync(viewModel.Ticket?.Id, viewModel.DeveloperId, _userManager.GetUserId(User));
             }
-            return View();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

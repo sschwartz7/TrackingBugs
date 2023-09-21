@@ -44,9 +44,9 @@
                                 <div class="profile-cover__action bg-img"></div>
                                 <div class="profile-cover__info">
                                     <ul class="nav">
-                                        <li>Start Date: <span class="">@Model.StartDate</span></li>
-                                        <li>Deadline: <span class="">@Model.EndDate</span></li>
-                                        <li>Priority: <span class="">@Model.ProjectPriority.Name</span></li>
+                                        <li><strong>Start Date:</strong> <span class="">@Model.StartDate</span></li>
+                                        <li><strong>Deadline:</strong> <span class="">@Model.EndDate</span></li>
+                                        <li><strong>Priority:</strong> <span class="">@Model.ProjectPriority.Name</span></li>
                                         <li>@(Model.Archived == true ? "Inactive" : "Active")</li>
                                     </ul>
                                 </div>
@@ -57,7 +57,7 @@
                                     <a class="nav-link" data-bs-toggle="tab" href="#history">History</a>
                                     <a class="nav-link" data-bs-toggle="tab" href="#members">Members</a>
                                     <a class="nav-link" data-bs-toggle="tab" href="#tickets">Tickets</a>
-                                    @if (User.IsInRole("Admin")||projectManager.Id == UserManager.GetUserId(User))
+                                    @if (User.IsInRole("Admin")||projectManager?.Id == UserManager.GetUserId(User))
                                     {
                                         <a class="nav-link" data-bs-toggle="tab" href="#edit">Edit</a>
                                     }
@@ -75,7 +75,9 @@
                         <div class="tab-content">
                             <div class="main-content-body tab-pane p-4 border-top-0 active" id="about">
                                 <div class="card-body p-0 border p-0 rounded-10">
+
                                     <div class="p-4">
+                                        <h5>Tickets</h5>
                                         <!-- Morris: Donut -->
                                         <div class="col-md-12">
                                             <div id="legend" class="donut-legend" style="font-size:x-small"></div>
@@ -120,7 +122,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="main-content-body tab-pane border-top-0" id="members">
+                            <div class="main-content-body tab-pane p-4 border-top-0" id="members">
                                 <div class="card-body border pd-b-10">
                                     @if (User.IsInRole("ProjectManager") || User.IsInRole("Admin"))
                                     {
@@ -215,7 +217,7 @@
                                                         </td>
                                                         <td>
                                                             <a asp-action="Details" asp-route-id="@ticket.Id" asp-controller="Tickets">Details</a>
-                                                            <a asp-action="Delete" asp-route-id="@ticket.Id" asp-controller="Tickets">Archive</a>
+                                                            <a asp-action="Archive" asp-route-id="@ticket.Id" asp-controller="Tickets">Archive</a>
                                                             <a asp-action="AssignTicket" asp-route-id="@ticket.Id" asp-controller="Tickets">Assign</a>
                                                         </td>
                                                     </tr>
@@ -226,7 +228,7 @@
                                 </div>
 
                             </div>
-                            <div class="main-content-body tab-pane p-4 border-top-0 active" id="edit">
+                            <div class="main-content-body tab-pane p-4 border-top-0" id="edit">
                                 <div class="card-body p-0 border p-0 rounded-10">
                                     <div class="p-4">
                                         <form asp-action="Edit">

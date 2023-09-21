@@ -25,20 +25,17 @@
                 <div class="col-xl-3 col-lg-4">
                     <div class="card custom-card mail-container task-container overflow-hidden">
                         <div class="">
-                            <div class="p-4 border-bottom">
-                                <a class="btn btn-main-primary btn-block btn-compose" href="mail-compose.html">Compose</a>
-                            </div>
                             <div class="card-body tab-list-items">
                                 <div class="main-content-left main-content-left-mail">
                                     <div class="main-mail-menu">
                                         <nav class="nav main-nav-column mg-b-20">
-                                            <a class="nav-link active" href="">
+                                            <a class="nav-link active" asp-action="ProjectNotificaiton" asp-controller="Notifications">
                                                 <i class="fe fe-mail"></i> Projects <span>20</span>
                                             </a>
-                                            <a class="nav-link" href="">
+                                            <a class="nav-link" asp-action="TicketNotification" asp-controller="Notifications">
                                                 <i class="fe fe-star"></i> Tickets <span>3</span>
                                             </a>
-                                            <a class="nav-link" href="">
+                                            <a class="nav-link" asp-action="Index" asp-controller="Notifications">
                                                 <i class="fe fe-bookmark"></i> All <span>10</span>
                                             </a>
  

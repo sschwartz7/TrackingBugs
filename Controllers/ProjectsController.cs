@@ -65,8 +65,10 @@ namespace TrackingBugs.Controllers
             {
                 return NotFound();
             }
-
             Project? project = await _projectService.GetProjectAsync(id, _companyId);
+            ViewData["CompanyId"] = new SelectList(_context.Companies, "Id", "Name", project.CompanyId);
+            ViewData["ProjectPriorityId"] = new SelectList(_context.Set<ProjectPriority>(), "Id", "Name", project.ProjectPriorityId);
+            
             return View(project);
         }
 
@@ -136,7 +138,7 @@ namespace TrackingBugs.Controllers
             }
             ViewData["CompanyId"] = new SelectList(_context.Companies, "Id", "Name", project.CompanyId);
             ViewData["ProjectPriorityId"] = new SelectList(_context.Set<ProjectPriority>(), "Id", "Name", project.ProjectPriorityId);
-            return View(project);
+            return View(nameof(Details), project);
         }
 
         // GET: Projects/Delete/5

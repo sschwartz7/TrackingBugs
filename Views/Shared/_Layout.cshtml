@@ -20,7 +20,7 @@
           content="admin,dashboard,panel,bootstrap admin template,bootstrap dashboard,dashboard,themeforest admin dashboard,themeforest admin,themeforest dashboard,themeforest admin panel,themeforest admin template,themeforest admin dashboard,cool admin,it dashboard,admin design,dash templates,saas dashboard,dmin ui design">
 
     <!-- Favicon -->
-    <link rel="icon" href="~/assets/img/brand/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="~/img/favicon.ico" type="image/x-icon" />
 
     <!-- Title -->
     <title>Tracker</title>
@@ -74,17 +74,17 @@
                     <a class="main-header-menu-icon" href="javascript:void(0)" id="mainSidebarToggle"><span></span></a>
                     <div class="hor-logo">
                         <a class="main-logo" href="index.html">
-                            <img src="~/assets/img/brand/logo.png" class="header-brand-img desktop-logo" alt="logo">
-                            <img src="~/assets/img/brand/logo-light.png" class="header-brand-img desktop-logo-dark"
+                            <img src="~/img/Bright Sight Script (1).png"header-brand-img desktop-logo" alt="logo">
+                            <img src="~/img/Bright Sight Script (1).png" class="header-brand-img desktop-logo-dark"
                                  alt="logo">
                         </a>
                     </div>
                 </div>
                 <div class="main-header-center">
                     <div class="responsive-logo">
-                        <a href="index.html"><img src="~/assets/img/brand/logo.png" class="mobile-logo" alt="logo"></a>
+                        <a href="index.html"><img src="~/img/Bright Sight Script (1).png" class="mobile-logo" alt="logo"></a>
                         <a href="index.html">
-                            <img src="~/assets/img/brand/logo-light.png" class="mobile-logo-dark"
+                            <img src="~/img/Bright Sight Script (1).png" class="mobile-logo-dark"
                                  alt="logo">
                         </a>
                     </div>
@@ -308,14 +308,7 @@
                                     <span class="sidemenu-label">Company</span>
                                 </a>
 
-                                @if (User.IsInRole("Admin"))
-                                {
-                                    <ul class="nav-sub">
-                                        <li><a asp-action="Create" asp-controller="Invites">Company Invite</a></li>
-                                    </ul>
-                                    
-                                }
-                            </li>
+                            </li>            
                             <li class="nav-item">
                                 <a class="nav-link with-sub" href="javascript:void(0)">
                                     <span class="shape1"></span>
@@ -328,10 +321,21 @@
                                 </a>
                                 <ul class="nav-sub">
                                     <li class="side-menu-label1"><a href="javascript:void(0)">Projects</a></li>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                                    {
                                     <li class="nav-sub-item"> <a class="nav-sub-link" asp-action="Create" asp-controller="Projects">New Project</a></li>
+                                    }
                                     <li class="nav-sub-item"><a class="nav-sub-link" asp-action="Index" asp-controller="Projects">All Projects</a></li>
-                                    <li class="nav-sub-item"><a class="nav-sub-link" asp-action="UnassignedProjects" asp-controller="Projects">Unassigned Projects</a></li>
-                                    <li class="nav-sub-item"><a class="nav-sub-link" asp-action="ArchivedProjects" asp-controller="Projects">Archived Projects</a></li>
+                                    @if (User.IsInRole("Submitter") || User.IsInRole("ProjectManager") || User.IsInRole("Developer"))
+                                    {
+                                        <li class="nav-sub-item"><a class="nav-sub-link" asp-action="ActiveProjectsByMember" asp-controller="Projects">My Projects</a></li>
+                                    }
+
+                                    @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                                    {
+                                        <li class="nav-sub-item"><a class="nav-sub-link" asp-action="UnassignedProjects" asp-controller="Projects">Unassigned Projects</a></li>
+                                        <li class="nav-sub-item"><a class="nav-sub-link" asp-action="ArchivedProjects" asp-controller="Projects">Archived Projects</a></li>
+                                    }
                                 </ul>
                             </li>
                             <li class="nav-item">
@@ -346,14 +350,22 @@
                                     <li class="side-menu-label1"><a href="javascript:void(0)">Tickets</a></li>
                                     <li class="nav-sub-item"><a class="nav-sub-link" asp-action="Create" asp-controller="Tickets">New Ticket</a></li>
                                     <li class="nav-sub-item"><a class="nav-sub-link" asp-action="Index" asp-controller="Tickets">All Tickets</a></li>
+                                    @if (User.IsInRole("Submitter") || User.IsInRole("ProjectManager") || User.IsInRole("Developer"))
+                                    {
+                                        <li class="nav-sub-item"><a class="nav-sub-link" asp-action="ActiveTicketsByMember" asp-controller="Tickets">My Projects</a></li>
+                                    }
+                                    @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                                    {
                                     <li class="nav-sub-item"><a class="nav-sub-link" asp-action="UnassignedTickets" asp-controller="Tickets">Unassigned Tickets</a></li>
                                     <li class="nav-sub-item"><a class="nav-sub-link" asp-action="ArchivedTickets" asp-controller="Tickets">Archived Tickets</a></li>
+                                    }
                                 </ul>
                             </li>
                             <li>
                                 <a class="nav-link" asp-action="Index" asp-controller="Notifications">
                                     <span class="shape1"></span>
                                     <span class="shape2"></span>
+                    
                                     <i class="ti-home sidemenu-icon menu-icon "></i>
                                     <span class="sidemenu-label">Notifications</span>
                                 </a>
