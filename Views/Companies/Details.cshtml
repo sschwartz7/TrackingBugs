@@ -3,6 +3,7 @@
 @inject IProjectService _ProjectService
 
 @{
+
     ViewData["Title"] = "Details";
 }
 
@@ -48,10 +49,9 @@
                                     <a class="nav-link  active" data-bs-toggle="tab" href="#about">About</a>
                                     <a class="nav-link" data-bs-toggle="tab" href="#projects">Projects</a>
                                     <a class="nav-link" data-bs-toggle="tab" href="#members">Members</a>
-
                                     @if (User.IsInRole("Admin"))
                                     {
-                                        <a class="nav-link" data-bs-toggle="tab" href="#settings">Account Settings</a>
+                                        <a class="nav-link" data-bs-toggle="tab" href="#settings">Company Settings</a>
                                     }
 
                                 </nav>

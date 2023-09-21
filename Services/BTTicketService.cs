@@ -7,6 +7,7 @@ using TrackingBugs.Enums;
 using TrackingBugs.Services.Interfaces;
 using Microsoft.CodeAnalysis;
 using System.ComponentModel.Design;
+using Project = TrackingBugs.Models.Project;
 
 namespace TrackingBugs.Services
 {
@@ -15,12 +16,14 @@ namespace TrackingBugs.Services
         private readonly ApplicationDbContext _context;
         private readonly UserManager<BTUser> _userManager;
         private readonly IBTRoleService _roleService;
+        private readonly IProjectService _projectService;
 
-        public BTTicketService(ApplicationDbContext context, UserManager<BTUser> userManager, IBTRoleService roleService = null)
+        public BTTicketService(ApplicationDbContext context, UserManager<BTUser> userManager, IBTRoleService roleService, IProjectService projectService)
         {
             _context = context;
             _userManager = userManager;
             _roleService = roleService;
+            _projectService = projectService;
         }
 
         public async Task AddTicketAsync(Ticket? ticket)
@@ -134,6 +137,39 @@ namespace TrackingBugs.Services
 
                 }
                 return tickets;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<List<string>> GetTicketMembersAsync(int? projectId, int? ticketId, int? companyId)
+        {
+            List<string> memberIds = new List<string>();
+            try
+            {
+                if (projectId != null && companyId != null && ticketId !=null)
+                {
+                    Ticket? ticket = await GetTicketByIdAsync(ticketId, companyId);
+                    if (ticket != null)
+                    {
+                        memberIds.Add(ticket.DeveloperUserId);
+                        memberIds.Add(ticket.SubmitterUserId);
+                        BTUser? manager = await _projectService.GetProjectManagerAsync(projectId);
+                        if (manager.Id != null)
+                        {
+                            memberIds.Add(manager.Id);
+                        }
+                        //Testing purposes. does the same code as the foreach
+                        //List<string> developers = (await _roleService.GetUsersInRoleAsync(roleName, companyId))?.Select(u => u.Id).ToList()!;
+                        //List<BTUser> users = project.Members.Where(m => developers.Contains(m.Id)).ToList();
+                    }
+
+                }
+                return memberIds;
 
             }
             catch (Exception)

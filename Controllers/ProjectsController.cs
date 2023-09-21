@@ -71,6 +71,7 @@ namespace TrackingBugs.Controllers
         }
 
         // GET: Projects/Create
+        [Authorize(Roles = "Admin,ProjectManager")]
         public async Task<IActionResult> CreateAsync()
         {
             ViewData["CompanyId"] = new SelectList(_context.Companies, "Id", "Name");
@@ -83,6 +84,7 @@ namespace TrackingBugs.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,ProjectManager")]
         public async Task<IActionResult> Create([Bind("StartDate,EndDate,ProjectPriorityId,Name,Description")] Project project)
         {
             if (ModelState.IsValid)
@@ -96,6 +98,7 @@ namespace TrackingBugs.Controllers
         }
 
         // GET: Projects/Edit/5
+        [Authorize(Roles = "Admin,ProjectManager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Projects == null)
@@ -118,6 +121,7 @@ namespace TrackingBugs.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,ProjectManager")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,CompanyId,Created,ImageFormFile,ImageFileData,ImageFileType,StartDate,EndDate,ProjectPriorityId,Name,Description,Archived")] Project project)
         {
             if (id != project.Id)
@@ -136,6 +140,7 @@ namespace TrackingBugs.Controllers
         }
 
         // GET: Projects/Delete/5
+        [Authorize(Roles = "Admin,ProjectManager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Projects == null)
@@ -158,7 +163,8 @@ namespace TrackingBugs.Controllers
         // POST: Projects/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [Authorize(Roles = "Admin,ProjectManager")]
+        public async Task<IActionResult> Archive(int id)
         {
             if (_context.Projects == null)
             {
@@ -174,6 +180,24 @@ namespace TrackingBugs.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,ProjectManager")]
+        public async Task<IActionResult> Unarchive(int id)
+        {
+            if (_context.Projects == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Project'  is null.");
+            }
+            var project = await _context.Projects.FindAsync(id);
+            if (project != null)
+            {
+                _projectService.UnarchiveProjectAsync(id, _companyId);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
         private bool ProjectExists(int id)
         {
             return (_context.Projects?.Any(e => e.Id == id)).GetValueOrDefault();
@@ -181,6 +205,7 @@ namespace TrackingBugs.Controllers
 
 
         // GET: Projects/AssignPM
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> AssignPM(int? id)
         {
             if (id == null) { return NotFound(); }
@@ -202,9 +227,10 @@ namespace TrackingBugs.Controllers
             return View(viewModel);
         }
 
-        // POST: Projects/Delete/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AssignPM(AssignPMViewModel viewModel)
         {
             if (!string.IsNullOrEmpty(viewModel.PMId))
@@ -227,6 +253,7 @@ namespace TrackingBugs.Controllers
             return View(viewModel);
         }
         //Get
+        [Authorize(Roles = "Admin,ProjectManager")]
         public async Task<IActionResult> AssignProjectMembers(int? id)
         {
             if (id == null) { return NotFound(); }
@@ -251,6 +278,7 @@ namespace TrackingBugs.Controllers
         // POST: Projects/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,ProjectManager")]
         public async Task<IActionResult> AssignProjectMembers(ProjectMembersViewModel viewModel)
         {
             if (viewModel.SelectedMembers != null)

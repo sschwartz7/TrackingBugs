@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -44,6 +45,7 @@ namespace TrackingBugs.Controllers
         }
 
         // GET: Companies/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Companies == null)
@@ -103,6 +105,7 @@ namespace TrackingBugs.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,ImageFileData,ImageFileType")] Company company)
         {
             if (id != company.Id)
@@ -176,6 +179,7 @@ namespace TrackingBugs.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ManageUserRoles()
         {
             // 1 - Add an instance of the ViewModel as a List (model)
@@ -209,6 +213,7 @@ namespace TrackingBugs.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ManageUserRoles(ManageUserRolesViewModel viewModel)
         {
             // 1- Get the company Id

@@ -1,11 +1,16 @@
-﻿@model TrackingBugs.Models.Project
+﻿@using Microsoft.AspNetCore.Identity;
+@model TrackingBugs.Models.Project
 @inject IBTFileService _BTFileService
 @inject IProjectService _ProjectService
+@inject IBTTicketService _TicketService
 @inject IBTRoleService _RoleService
+@inject UserManager<BTUser> UserManager
 
 @{
     ViewData["Title"] = "Details";
     BTUser? projectManager = await _ProjectService.GetProjectManagerAsync(Model.Id)!;
+    BTUser? appUser = await UserManager.GetUserAsync(User);
+
 }
 
 
@@ -51,8 +56,11 @@
                                     <a class="nav-link  active" data-bs-toggle="tab" href="#about">About</a>
                                     <a class="nav-link" data-bs-toggle="tab" href="#history">History</a>
                                     <a class="nav-link" data-bs-toggle="tab" href="#members">Members</a>
-                                        <a class="nav-link" data-bs-toggle="tab" href="#tickets">Tickets</a>
-
+                                    <a class="nav-link" data-bs-toggle="tab" href="#tickets">Tickets</a>
+                                    @if (User.IsInRole("Admin")||projectManager.Id == UserManager.GetUserId(User))
+                                    {
+                                        <a class="nav-link" data-bs-toggle="tab" href="#edit">Edit</a>
+                                    }
                                 </nav>
                             </div>
                         </div>
@@ -114,9 +122,9 @@
                             </div>
                             <div class="main-content-body tab-pane border-top-0" id="members">
                                 <div class="card-body border pd-b-10">
-                                    @if (User.IsInRole("ProjectManager")||User.IsInRole("Admin"))
+                                    @if (User.IsInRole("ProjectManager") || User.IsInRole("Admin"))
                                     {
-                                            <a asp-action="AssignProjectMembers" asp-route-id="@Model.Id" class="btn btn-primary my-3">Assign Members</a>
+                                        <a asp-action="AssignProjectMembers" asp-route-id="@Model.Id" class="btn btn-primary my-3">Assign Members</a>
                                     }
                                     <!-- row -->
                                     <div class="row row-sm">
@@ -215,9 +223,54 @@
                                             </tbody>
                                         </table>
                                     </div>
-                            </div>
+                                </div>
 
-                        </div>
+                            </div>
+                            <div class="main-content-body tab-pane p-4 border-top-0 active" id="edit">
+                                <div class="card-body p-0 border p-0 rounded-10">
+                                    <div class="p-4">
+                                        <form asp-action="Edit">
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            <input type="hidden" asp-for="Id" />
+                                            <input type="hidden" asp-for="Created" />
+                                            <input type="hidden" asp-for="CompanyId" />
+                                            <div class="form-group">
+                                                <label asp-for="StartDate" class="control-label"></label>
+                                                <input asp-for="StartDate" class="form-control" />
+                                                <span asp-validation-for="StartDate" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="EndDate" class="control-label"></label>
+                                                <input asp-for="EndDate" class="form-control" />
+                                                <span asp-validation-for="EndDate" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="ProjectPriorityId" class="control-label"></label>
+                                                <select asp-for="ProjectPriorityId" class="form-control" asp-items="ViewBag.ProjectPriorityId"></select>
+                                                <span asp-validation-for="ProjectPriorityId" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Name" class="control-label"></label>
+                                                <input asp-for="Name" class="form-control" />
+                                                <span asp-validation-for="Name" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Description" class="control-label"></label>
+                                                <input asp-for="Description" class="form-control" />
+                                                <span asp-validation-for="Description" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" asp-for="Archived" /> @Html.DisplayNameFor(model => model.Archived)
+                                                </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="submit" value="Save" class="btn btn-primary" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -227,48 +280,48 @@
     </div>
 </div>
 @section Scripts{
-@* Morris Donut Chart *@
-<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
-<script>
+    @* Morris Donut Chart *@
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script>
 
-    var morrisDonutData = [{
-        label: "Low",
-        value: @Model.Tickets.Where(t=>t.TicketPriority.Name == nameof(BTTicketPriorities.Low)).Count()
-        }, {
-        label: "Medium",
-        value: @Model.Tickets.Where(t=>t.TicketPriority.Name == nameof(BTTicketPriorities.Medium)).Count()
-        }, {
-        label: "High",
-        value: @Model.Tickets.Where(t=>t.TicketPriority.Name == nameof(BTTicketPriorities.High)).Count()
-        }, {
-        label: "Urgent",
-        value: @Model.Tickets.Where(t=>t.TicketPriority.Name == nameof(BTTicketPriorities.Urgent)).Count()
-        }];
+        var morrisDonutData = [{
+            label: "Low",
+            value: @Model.Tickets.Where(t=>t.TicketPriority.Name == nameof(BTTicketPriorities.Low)).Count()
+                        }, {
+            label: "Medium",
+            value: @Model.Tickets.Where(t=>t.TicketPriority.Name == nameof(BTTicketPriorities.Medium)).Count()
+                        }, {
+            label: "High",
+            value: @Model.Tickets.Where(t=>t.TicketPriority.Name == nameof(BTTicketPriorities.High)).Count()
+                        }, {
+            label: "Urgent",
+            value: @Model.Tickets.Where(t=>t.TicketPriority.Name == nameof(BTTicketPriorities.Urgent)).Count()
+                        }];
 
 
-    /*
-    Morris: Donut
-    */
-    if ($('#morrisTicketPriority').get(0)) {
-        var donutChart = Morris.Donut({
-            resize: true,
-            element: 'morrisTicketPriority',
-            data: morrisDonutData,
-            colors: ['#0088cc', '#734ba9', '#E36159', '#ff993b']
-        });
+        /*
+        Morris: Donut
+        */
+        if ($('#morrisTicketPriority').get(0)) {
+            var donutChart = Morris.Donut({
+                resize: true,
+                element: 'morrisTicketPriority',
+                data: morrisDonutData,
+                colors: ['#0088cc', '#734ba9', '#E36159', '#ff993b']
+            });
 
-        donutChart.options.data.forEach(function (label, i) {
-            var legendItem = $('<span></span>').text(label['label'] + ": " + label['value']).prepend('<span>&nbsp;</span>');
-            legendItem.find('span')
-                .css('backgroundColor', donutChart.options.colors[i])
-                .css('width', '20px')
-                .css('display', 'inline-block')
-                .css('margin', '10px');
-            $('#legend').append(legendItem)
-        });
-    };
-</script>
+            donutChart.options.data.forEach(function (label, i) {
+                var legendItem = $('<span></span>').text(label['label'] + ": " + label['value']).prepend('<span>&nbsp;</span>');
+                legendItem.find('span')
+                    .css('backgroundColor', donutChart.options.colors[i])
+                    .css('width', '20px')
+                    .css('display', 'inline-block')
+                    .css('margin', '10px');
+                $('#legend').append(legendItem)
+            });
+        };
+    </script>
 
     <script>
         $('#ticketTable').DataTable({

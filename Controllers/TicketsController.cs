@@ -17,9 +17,11 @@ using Microsoft.Identity.Client;
 using TrackingBugs.Models.ViewModels;
 using TrackingBugs.Enums;
 using System.Net.Sockets;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TrackingBugs.Controllers
 {
+    [Authorize]
     public class TicketsController : BTBaseController
     {
         private readonly ApplicationDbContext _context;
@@ -104,6 +106,7 @@ namespace TrackingBugs.Controllers
         }
 
         // GET: Tickets/Create
+
         public IActionResult Create()
         {
             ViewData["DeveloperUserId"] = new SelectList(_context.Users, "Id", "FullName");
@@ -319,6 +322,7 @@ namespace TrackingBugs.Controllers
         }
 
         [HttpGet]
+         [Authorize(Roles ="Admin,ProjectManager")]
         public async Task<IActionResult> AssignTicket(int? id)
         {
             if (id == null) { return NotFound(); }
@@ -334,6 +338,7 @@ namespace TrackingBugs.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles ="Admin,ProjectManager")]
         public async Task<IActionResult> AssignTicket(AssignTicketViewModel viewModel)
         {
             if(viewModel.DeveloperId != null && viewModel.Ticket?.Id != null) 
