@@ -76,7 +76,7 @@
                             <div class="main-content-body tab-pane p-4 border-top-0 active" id="about">
                                 <div class="card-body p-0 border p-0 rounded-10">
 
-                                    <div class="p-4">
+                                    <div class="p-4 col">
                                         <h5>Tickets</h5>
                                         <!-- Morris: Donut -->
                                         <div class="col-md-12">
@@ -85,6 +85,10 @@
                                         <div class="col-md-12">
                                             <div class="chart chart-md" id="morrisTicketPriority"></div>
                                         </div>
+                                    </div>
+                                    <div class="col">
+                                        <h3>Description:</h3>
+                                        <p>@Model.Description</p>
                                     </div>
                                 </div>
                             </div>
@@ -216,9 +220,7 @@
                                                             @Html.DisplayFor(modelItem => ticket.TicketStatus.Name)
                                                         </td>
                                                         <td>
-                                                            <a asp-action="Details" asp-route-id="@ticket.Id" asp-controller="Tickets">Details</a>
-                                                            <a asp-action="Archive" asp-route-id="@ticket.Id" asp-controller="Tickets">Archive</a>
-                                                            <a asp-action="AssignTicket" asp-route-id="@ticket.Id" asp-controller="Tickets">Assign</a>
+                                                            <a class="btn btn-primary" asp-action="Details" asp-route-id="@ticket.Id" asp-controller="Tickets">Details</a>
                                                         </td>
                                                     </tr>
                                                 }

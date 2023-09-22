@@ -5,7 +5,7 @@
 }
 
 <h1>@ViewData["Title"]</h1>
-
+@if(Model != null ){
 <table id="ticketTable" class="table">
     <thead>
         <tr>
@@ -53,14 +53,19 @@
                     @Html.DisplayFor(modelItem => item.TicketStatus.Name)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id">Archive</a>
-                    <a asp-action="AssignTicket" asp-route-id="@item.Id">Assign</a>
+                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Archive</a>
                 </td>
             </tr>
         }
     </tbody>
-</table>
+    </table>
+}
+else
+{
+    <H5>There are no tickets.</H5>
+}
+
 @section Scripts{
     <script>
         $('#ticketTable').DataTable({

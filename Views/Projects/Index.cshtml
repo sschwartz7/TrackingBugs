@@ -8,7 +8,7 @@
 }
 
 
-
+@if(Model != null){
 @foreach (Project project in Model)
 {  
     BTUser? projectManager = await _ProjectService.GetProjectManagerAsync(project.Id);
@@ -24,8 +24,7 @@
                 }
                 else
                 {
-                    <span>No Project Manager...</span>
-                    <span>Yet</span>
+                    <span>No Project Manager</span>
                 }
             </h5>
         </div>
@@ -38,9 +37,15 @@
             </div>
             <a asp-action="Details" asp-route-id="@project.Id" class="btn btn-primary ripple btn-block">Details</a>
         </div>
-    </div>
-}
+        </div>
+    }
 
+}
+else
+{
+    <h5>There are no projects</h5>
+
+}
 
 
 

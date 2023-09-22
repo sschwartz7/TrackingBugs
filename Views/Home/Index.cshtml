@@ -4,11 +4,11 @@
     Layout = "_Layout2";
 }
 
-    <!-- Loader -->
-    <div id="global-loader">
-        <img src="~/assets/img/loader.svg" class="loader-img" alt="Loader">
-    </div>
-    <!-- End Loader -->
+<!-- Loader -->
+<div id="global-loader">
+    <img src="~/assets/img/loader.svg" class="loader-img" alt="Loader">
+</div>
+<!-- End Loader -->
 <!-- Main Header-->
 <div class="main-header side-header">
     <div class="main-container container-fluid">
@@ -25,7 +25,7 @@
         </div>
         <div class="main-header-center">
             <div class="responsive-logo">
-                <a href="index.html"><img src="~/img/Bright Sight Script (1).png" class="mobile-logo" alt="logo"></a>
+                <a href="index.html"><img src="~/img/Bright Sight Script (1).png" class="mobile-logo height:" alt="logo"></a>
                 <a href="index.html">
                     <img src="~/img/Bright Sight Script (1).png" class="mobile-logo-dark"
                          alt="logo">
@@ -101,14 +101,12 @@
                             </svg>
                         </div>
                         <div class="header-nav-right d-none d-lg-block">
-                            <a href="signin.html" class="btn ripple btn-min w-sm btn-secondary me-2"
-                               target="_blank">
-                                New User
-                            </a>
-                            <a href="signup.html" class="btn ripple btn-min w-sm btn-info me-2"
-                               target="_blank">
-                                Login
-                            </a>
+
+                            <a class="btn ripple btn-min w-sm btn-danger me-2" asp-area="Identity" asp-page="/Account/Register">Register</a>
+
+
+                            <a class="btn ripple btn-min w-sm btn-info me-2" asp-area="Identity" asp-page="/Account/Login">Login</a>
+
                         </div>
                     </div>
                 </div>
@@ -127,7 +125,7 @@
                     </h6>
 
                     <a asp-action="Dashboard" asp-controller="Home"
-                        class="btn ripple btn-min w-lg mb-3 me-2 btn-light">
+                       class="btn ripple btn-min w-lg mb-3 me-2 btn-light">
                         <i class="fe fe-play me-2"></i> Get Started
                     </a>
                 </div>

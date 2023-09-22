@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using TrackingBugs.Data;
 using TrackingBugs.Enums;
@@ -38,8 +39,9 @@ namespace TrackingBugs.Controllers
             _emailSender = emailSender;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+
             return View();
         }
         [Authorize]
@@ -150,7 +152,7 @@ namespace TrackingBugs.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ContactMe([Bind("FirstName,LastName,Email")] string? message)
+        public async Task<IActionResult> ContactMe([Bind("FirstName,LastName,Email")] BTUser btUser, string? message)
         {
             string? swalMessage = string.Empty;
 
@@ -158,8 +160,8 @@ namespace TrackingBugs.Controllers
             {
                 try
                 {
-                    string? adminEmail = _configuration["AdminLoginEmail"] ?? Environment.GetEnvironmentVariable("AdminLoginEmail");
-                    await _emailSender.SendEmailAsync(adminEmail!, "Contact Me Message From - Tracker", message!);
+                    string? adminEmail = _configuration["AdminEmailAdress"] ?? Environment.GetEnvironmentVariable("AdminEmailAddress");
+                    await _emailSender.SendEmailAsync(adminEmail!, $"Contact Me Message From - {btUser.Email}", message!);
                     swalMessage = "Email sent successfully!";
                 }
                 catch (Exception)
