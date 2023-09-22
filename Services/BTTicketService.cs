@@ -83,7 +83,7 @@ namespace TrackingBugs.Services
             try
             {
                 ticket.Archived = true;
-                await _context.SaveChangesAsync();
+                await UpdateTicketAsync(ticket);
             }
             catch (Exception)
             {
@@ -91,6 +91,7 @@ namespace TrackingBugs.Services
                 throw;
             }
         }
+
 
         public async Task AssignTicketAsync(int? ticketId, string? userId)
         {
@@ -293,7 +294,7 @@ namespace TrackingBugs.Services
                 Ticket? ticket = new();
                 if (ticketId != null && companyId != null)
                 {
-                    ticket = await _context.Tickets.Where(t => t.Project!.CompanyId == companyId && t.Archived == false)
+                    ticket = await _context.Tickets.Where(t => t.Project!.CompanyId == companyId)
                         .Include(t => t.Project)
                             .ThenInclude(p => p!.Company)
                         .Include(t => t.Attachments)
@@ -415,7 +416,7 @@ namespace TrackingBugs.Services
             try
             {
                 ticket.Archived = false;
-                await _context.SaveChangesAsync();
+                await UpdateTicketAsync(ticket);    
             }
             catch (Exception)
             {

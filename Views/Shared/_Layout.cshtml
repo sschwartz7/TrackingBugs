@@ -73,7 +73,7 @@
                 <div class="main-header-left">
                     <a class="main-header-menu-icon" href="javascript:void(0)" id="mainSidebarToggle"><span></span></a>
                     <div class="hor-logo">
-                        <a class="main-logo" href="index.html" style="width:50px">
+                        <a class="main-logo" asp-action="Dashboard" asp-controller="Home" style="width:50px">
                             <img src="~/img/Bright Sight Script (1).png" class="header-brand-img desktop-logo" alt="logo">
                             <img src="~/img/Bright Sight Script (1).png" class="header-brand-img desktop-logo-dark"
                                  alt="logo">
@@ -82,8 +82,8 @@
                 </div>
                 <div class="main-header-center">
                     <div class="responsive-logo" style="width:50px">
-                        <a href="index.html"><img src="~/img/Bright Sight Script (1).png" class="mobile-logo" alt="logo"></a>
-                        <a href="index.html">
+                        <a asp-action="Dashboard" asp-controller="Home"><img src="~/img/Bright Sight Script (1).png" class="mobile-logo" alt="logo"></a>
+                        <a asp-action="Dashboard" asp-controller="Home">
                             <img src="~/img/Bright Sight Script (1).png" class="mobile-logo-dark"
                                  alt="logo">
                         </a>
@@ -141,7 +141,7 @@
             <div class="main-menu main-sidebar main-sidebar-sticky side-menu">
                 <div class="main-sidebar-header main-container-1 active">
                     <div class="sidemenu-logo">
-                        <a class="main-logo" href="index.html">
+                        <a class="main-logo" asp-action="Dashboard" asp-controller="Home">
                             <img src="~/img/Bright Sight Script.png" class="header-brand-img desktop-logo" alt="logo">
                             <img src="~/img/Bright Sight Script (1).png" class="header-brand-img icon-logo" alt="logo">
                             <img src="~/img/Bright Sight Script.png" class="header-brand-img desktop-logo theme-logo" alt="logo">

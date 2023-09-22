@@ -662,7 +662,7 @@ namespace TrackingBugs.Services
             {
                 Project project = await GetProjectAsync(projectId, companyId);
 
-                project.Archived = true;
+                project.Archived = false;
                 foreach (Ticket ticket in project.Tickets)
                 {
                     ticket.ArchivedByProject = false;

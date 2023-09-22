@@ -3,76 +3,70 @@
 
 @{
     ViewData["Title"] = "Log in";
+    Layout = "_SpruhaLoginLayout.cshtml";
 }
-
-<h1>@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-4">
-        <section>
-            <form id="account" method="post">
-                <h2>Use a local account to log in.</h2>
-                <hr />
-                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true"  />
-                    <label asp-for="Input.Email" class="form-label">Email</label>
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true"  />
-                    <label asp-for="Input.Password" class="form-label">Password</label>
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="checkbox mb-3">
-                    <label asp-for="Input.RememberMe" class="form-label">
-                        <input class="form-check-input" asp-for="Input.RememberMe" />
-                        @Html.DisplayNameFor(m => m.Input.RememberMe)
-                    </label>
-                </div>
-                <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
-                </div>
-                <div>
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                    <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
-                </div>
-            </form>
-        </section>
+<div class="col-lg-6 col-xl-5 d-none d-lg-block text-center bg-primary details">
+    <div class="mt-5 pt-4 p-2 pos-absolute">
+        <img src="~/assets/img/brand/logo-light.png" class="d-lg-none header-brand-img text-start float-start mb-4 error-logo-light" alt="logo">
+        <img src="~/assets/img/brand/logo.png" class=" d-lg-none header-brand-img text-start float-start mb-4 error-logo" alt="logo">
+        <div class="clearfix"></div>
+        <img src="~/assets/img/svgs/user.svg" class="ht-100 mb-0" alt="user">
+        <h5 class="mt-4 text-white">Create Your Account</h5>
+        <span class="tx-white-6 tx-13 mb-5 mt-xl-0">Signup to create, discover and connect with the global community</span>
     </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
+</div>
+<div class="col-lg-6 col-xl-7 col-xs-12 col-sm-12 login_form ">
+    <div class="main-container container-fluid">
+        <div class="row row-sm">
+            <div class="card-body mt-2 mb-2">
+                <img src="~/assets/img/brand/logo.png" class=" d-lg-none header-brand-img text-start float-start mb-4" alt="logo">
+                <div class="clearfix"></div>
+                <form id="account" method="post">
+                    <h5 class="text-start mb-2">Signin to Your Account</h5>
+                    <p class="mb-4 text-muted tx-13 ms-0 text-start">Signin to create, discover and connect with the global community</p>
+                    <div class="form-group text-start">
+                        <label asp-for="Input.Email"></label>
+                        <input asp-for="Input.Email" class="form-control" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group text-start">
+                        <label asp-for="Input.Password"></label>
+                        <input asp-for="Input.Password" class="form-control" placeholder="Enter your password">
+                    </div>
+                    <button id="login-submit" type="submit" class="btn ripple btn-main-primary btn-block">Sign In</button>
+                </form>
+                <div class="text-start mt-5 ms-0">
+                    <div class="mb-1"><a id="forgot-password" asp-page="./ForgotPassword">Forgot password?</a></div>
+                    <div>Don't have an account? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register Here</a></div>
+                </div>
+                <div class="p-3">
+                    <section>
 
-            <section>
-                <h3>Or use one of the Demo Accounts to log in. </h3>
-                <hr />
+                        <section>
+                            <h5 class="text-start mb-2">Or use one of the Demo Accounts to log in. </h5>
+                            <hr />
 
-                <div class="mb-1 text-center">
-                    <form class="" id="account" method="post">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-8 btn-block">
-                                    <button type="submit" style="width:inherit;height:min-content" class="btn btn-primary p-10 m-2" name="demoEmail" value="DemoAdminEmail">Demo Admin</button>
-                                    <button type="submit" style="width:inherit;height:min-content" class="btn btn-primary p-10 m-2" name="demoEmail" value="DemoPMEmail">Demo PM</button>
-                                    <button type="submit" style="width:inherit;height:min-content" class="btn btn-primary p-10 m-2" name="demoEmail" value="DemoDevEmail">Demo Developer</button>
-                                    <button type="submit" style="width:inherit;height:min-content" class="btn btn-primary p-10 m-2" name="demoEmail" value="DemoSubEmail">Demo Submitter</button>
-                                </div>
+                            <div class="mb-1 text-center">
+                                <form class="" id="account" method="post">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-8 btn-block">
+                                                <button type="submit" style="width:inherit;height:min-content" class="btn ripple btn-main-primary btn-block" name="demoEmail" value="DemoAdminEmail">Demo Admin</button>
+                                                <button type="submit" style="width:inherit;height:min-content" class="btn ripple btn-main-primary btn-block" name="demoEmail" value="DemoPMEmail">Demo PM</button>
+                                                <button type="submit" class="btn ripple btn-main-primary btn-block" name="demoEmail" value="DemoDevEmail">Demo Developer</button>
+                                                <button type="submit" class="btn ripple btn-main-primary btn-block" name="demoEmail" value="DemoSubEmail">Demo Submitter</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                        </div>
-                    </form>
+
+                        </section>
+
+                    </section>
                 </div>
-
-            </section>
-            
-        </section>
+            </div>
+        </div>
     </div>
-
 </div>
 
 @section Scripts {

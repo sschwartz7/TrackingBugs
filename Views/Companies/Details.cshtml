@@ -10,7 +10,7 @@
 
 
 <!-- Main Content-->
-<div class="main-content side-content pt-0">
+<div class="main-content pt-0">
 
     <div class="main-container container-fluid">
         <div class="inner-body">
@@ -67,7 +67,7 @@
                     <div class="card custom-card main-content-body-profile">
                         <div class="tab-content">
                             <div class="main-content-body tab-pane p-4 border-top-0 active" id="about">
-                                <div class="card-body p-0 border p-0 rounded-10">
+                                <div class="card-body p-0 rounded-10">
                                     <div class="p-4">
                                         <h4 class="tx-15 text-uppercase mb-3">Who Are We:</h4>
                                         <p class="m-b-5">@Model.Description</p>
@@ -75,7 +75,7 @@
                                 </div>
                             </div>
                             <div class="main-content-body tab-pane p-4 border-top-0" id="projects">
-                                <div class="card-body border">
+                                <div class="card-body">
                                     <div class="col-sm-12 col-lg-12 col-xl-12">
                                         <div class="card custom-card overflow-hidden">
                                             @foreach (Project project in Model.Projects)
@@ -93,8 +93,7 @@
                                                             }
                                                             else
                                                             {
-                                                                <span>No Project Manager...</span>
-                                                                <span>Yet</span>
+                                                                <span>No Project Manager</span>
                                                             }
                                                         </h5>
                                                     </div>
@@ -105,16 +104,18 @@
                                                             <div class="col-6 border-end"> Developers: <span class="fw-medium">@((await _ProjectService.GetProjectMembersByRoleAsync(project.Id, nameof(BTRoles.Developer), project.CompanyId)).Count)</span></div>
                                                             <div class="col-6 border-start"> Submitters: <span class="fw-medium">@((await _ProjectService.GetProjectMembersByRoleAsync(project.Id, nameof(BTRoles.Developer), project.CompanyId)).Count)</span> </div>
                                                         </div>
-                                                        <a asp-action="Details" asp-route-id="@project.Id" class="btn btn-primary ripple btn-block">Details</a>
+                                                        <a asp-action="Details" asp-route-id="@project.Id" asp-controller="Projects" class="btn btn-primary ripple btn-block">Details</a>
                                                     </div>
                                                 </div>
+                                                <hr />
                                             }
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="main-content-body tab-pane border-top-0" id="members">
-                                <div class="card-body border pd-b-10">
+                                <div class="card-body pd-b-10">
+                                    <div class="d-flex justify-content-end">
                                     @if (User.IsInRole("Admin"))
                                     {
                                         <a asp-action="Create" asp-controller="Invites" type="button" class="btn btn-primary btn-icon-text my-2 me-2">
@@ -124,6 +125,7 @@
                                             Manage Roles
                                         </a>
                                     }
+                                    </div>
                                     <!-- row -->
                                     <div class="row row-sm">
                                         <h5>Administrators</h5>
@@ -170,7 +172,7 @@
                                 </div>
                             </div>
                             <div class="main-content-body tab-pane p-4 border-top-0" id="settings">
-                                <div class="card-body border" data-select2-id="12">
+                                <div class="card-body" data-select2-id="12">
                                     <form asp-action="Edit">
                                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                         <input type="hidden" asp-for="Id" />

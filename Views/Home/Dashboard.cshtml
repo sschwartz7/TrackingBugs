@@ -120,7 +120,7 @@
 												@Html.DisplayFor(modelItem => item.TicketStatus.Name)
 											</td>
 											<td>
-												<a asp-action="Details" asp-route-id="@item.Id">Details</a>
+												<a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id" asp-controller="Tickets">Details</a>
 											</td>
 										</tr>
 									}
@@ -174,8 +174,7 @@
 										}
 										else
 										{
-											<span>No Project Manager...</span>
-											<span>Yet</span>
+											<span>No Project Manager</span>
 										}
 									</h5>
 								</div>
@@ -186,7 +185,7 @@
 										<div class="col-6 border-end"> Developers: <span class="fw-medium">@((await ProjectService.GetProjectMembersByRoleAsync(recentProject.Id, nameof(BTRoles.Developer), recentProject.CompanyId)).Count)</span></div>
 										<div class="col-6 border-start"> Submitters: <span class="fw-medium">@((await ProjectService.GetProjectMembersByRoleAsync(recentProject.Id, nameof(BTRoles.Developer), recentProject.CompanyId)).Count)</span> </div>
 									</div>
-									<a asp-action="Details" asp-route-id="@recentProject.Id" class="btn btn-primary ripple btn-block">Details</a>
+									<a asp-action="Details" asp-route-id="@recentProject.Id" asp-controller="Projects" class="btn btn-primary ripple btn-block">Details</a>
 								</div>
 							</div>
 						

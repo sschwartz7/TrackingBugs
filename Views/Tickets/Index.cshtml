@@ -5,66 +5,81 @@
 }
 
 <h1>@ViewData["Title"]</h1>
-@if(Model != null ){
-<table id="ticketTable" class="table">
-    <thead>
-        <tr>
-            <th>
-                Priority
-            </th>
-            <th>
-                Project
-            </th>
-            <th>
-                Title
-            </th>
-            <th>
-                Submitter
-            </th>
-            <th>
-                Developer
-            </th>
-            <th>
-                Status
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TicketPriority.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Project.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SubmitterUser.FullName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DeveloperUser.FullName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TicketStatus.Name)
-                </td>
-                <td>
-                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Archive</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-    </table>
-}
-else
-{
-    <H5>There are no tickets.</H5>
-}
+
+<div class="main-content">
+    <div class="main-container container-fluid">
+        <div class="inner-body">
+            @if (Model != null)
+            {
+                <table id="ticketTable" class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Priority
+                            </th>
+                            <th>
+                                Project
+                            </th>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Submitter
+                            </th>
+                            <th>
+                                Developer
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Ticket ticket in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => ticket.TicketPriority.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => ticket.Project.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => ticket.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => ticket.SubmitterUser.FullName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => ticket.DeveloperUser.FullName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => ticket.TicketStatus.Name)
+                                </td>
+                                <td>
+                                    @if (ticket.Archived == true)
+                                    {
+                                        <a asp-action="ArchiveToggle" asp-controller="Tickets" method="post" asp-route-id="@ticket.Id" class="btn btn-outline-danger">Unarchive</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="ArchiveToggle" asp-controller="Tickets" method="post" asp-route-id="@ticket.Id" class="btn btn-outline-danger">Archive</a>
+                                    }
+                                    <a class="btn btn-danger" asp-action="Details" asp-route-id="@ticket.Id">Details</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <H5>There are no tickets.</H5>
+            }
+        </div>
+    </div>
+</div>
 
 @section Scripts{
     <script>

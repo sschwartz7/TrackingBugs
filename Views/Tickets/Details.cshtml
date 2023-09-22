@@ -17,232 +17,233 @@
 <div class="main-content pt-0">
 
     <div class="main-container container-fluid">
- 
 
-            <!-- Page Header -->
-            <div class="page-header">
-                <div>
-                    <h2 class="main-content-title tx-24 mg-b-5">@Model.Title</h2>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Tickets</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
-                    </ol>
-                </div>
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h2 class="main-content-title tx-24 mg-b-5">@Model.Title</h2>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Tickets">Tickets</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+                </ol>
             </div>
-            <!-- End Page Header -->
+        </div>
+        <!-- End Page Header -->
 
-            <div class="row square">
-                <div class="col-lg-12 col-md-12">
-                    <div class="card custom-card">
-                        <div class="card-body">
-                            <div class="panel profile-cover">
-                                <div class="profile-cover__img">
-                                    <img src="~/assets/img/users/1.jpg" alt="img" />
-                                    <h3 class="h3">@Model.Title</h3>
-                                </div>
-                                <div class="profile-cover__action bg-img"></div>
-                                <div class="profile-cover__info">
-                                    <ul class="nav">
-                                        @*Ticket date*@
-                                        <li><strong>Date Entered:</strong> <span class="">  @Model.Created</</span></li>
-                                        @*Project end date*@
-                                        <li><strong>Deadline:</strong> <span class="">  @Model.Project.EndDate</</span></li>
-                                        @*Ticket type*@
-                                        <li><strong>Type:</strong> <span class="">  @Model.TicketType?.Name</span></li>
-                                        @*Ticket priority*@
-                                        <li><strong>Priority:</strong> <span class="">  @Model.TicketPriority?.Name</span></li>
-                                        @*Ticket status*@
-                                        <li><strong>Status:</strong> <span class="">  @Model.TicketStatus?.Name</span></li>
-                                    </ul>
-                                </div>
+        <div class="row square">
+            <div class="col-lg-12 col-md-12">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <div class="panel profile-cover">
+                            <div class="profile-cover__img">
+                                <img src="~/assets/img/users/1.jpg" alt="img" />
+                                <h3 class="h3">@Model.Title</h3>
                             </div>
-                            <div class="profile-tab tab-menu-heading">
-                                <nav class="nav main-nav-line p-3 tabs-menu profile-nav-line bg-gray-100">
-                                    <a class="nav-link  active" data-bs-toggle="tab" href="#about">About</a>
-                                    <a class="nav-link" data-bs-toggle="tab" href="#history">History</a>
-                                    <a class="nav-link" data-bs-toggle="tab" href="#comments">Comments</a>
-                                    <a class="nav-link" data-bs-toggle="tab" href="#attachments">Attachments</a>
-                                    @if (Model.SubmitterUserId == UserManager.GetUserId(User) || Model.DeveloperUserId == UserManager.GetUserId(User) || User.IsInRole("Admin") || projectManager?.Id == UserManager.GetUserId(User))
-                                    {
-                                        <a class="nav-link" data-bs-toggle="tab" href="#edit">Edit</a>
-                                    }
-                                </nav>
+                            <div class="profile-cover__action bg-img"></div>
+                            <div class="profile-cover__info">
+                                <ul class="nav">
+                                    @*Ticket date*@
+                                    <li><strong>Date Entered:</strong> <span class="">  @Model.Created</</span></li>
+                                    @*Project end date*@
+                                    <li><strong>Deadline:</strong> <span class="">  @Model.Project.EndDate</</span></li>
+                                    @*Ticket type*@
+                                    <li><strong>Type:</strong> <span class="">  @Model.TicketType?.Name</span></li>
+                                    @*Ticket priority*@
+                                    <li><strong>Priority:</strong> <span class="">  @Model.TicketPriority?.Name</span></li>
+                                    @*Ticket status*@
+                                    <li><strong>Status:</strong> <span class="">  @Model.TicketStatus?.Name</span></li>
+                                </ul>
                             </div>
+                        </div>
+                        <div class="profile-tab tab-menu-heading">
+                            <nav class="nav main-nav-line p-3 tabs-menu profile-nav-line bg-gray-100">
+                                <a class="nav-link  active" data-bs-toggle="tab" href="#about">About</a>
+                                <a class="nav-link" data-bs-toggle="tab" href="#history">History</a>
+                                <a class="nav-link" data-bs-toggle="tab" href="#comments">Comments</a>
+                                <a class="nav-link" data-bs-toggle="tab" href="#attachments">Attachments</a>
+                                @if (Model.SubmitterUserId == UserManager.GetUserId(User) || Model.DeveloperUserId == UserManager.GetUserId(User) || User.IsInRole("Admin") || projectManager?.Id == UserManager.GetUserId(User))
+                                {
+                                    <a class="nav-link" data-bs-toggle="tab" href="#edit">Edit</a>
+                                }
+                            </nav>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Row -->
-            <div class="row row-sm">
-                <div class="col-lg-12 col-md-12">
-                    <div class="card custom-card main-content-body-profile">
-                        <div class="tab-content">
-                            <div class="main-content-body tab-pane p-4 border-top-0 active" id="about">
-                                <div class="card-body p-0 border p-0 rounded-10">
-                                    <div class="p-4">
-                                        @if (Model.DeveloperUser != null)
-                                        {
-                                            <p>Developer: <span>@Model.DeveloperUser?.FullName</span></p>
-                                        } else
-                                            {
-                                            <a asp-action="AssignTicket" asp-route-id="@Model.Id">Assign</a>
-                                            }
-
-                                        <p>Submitter: <span>@Model.SubmitterUser?.FullName</span></p>
-                                        <p>@Model.Description</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="main-content-body tab-pane p-4 border-top-0" id="history">
-                                <div class="card-body border">
-                                    <div class="col-sm-12 col-lg-12 col-xl-12">
-                                        <div class="card custom-card overflow-hidden">
-                                            @foreach (TicketHistory history in Model.History)
-                                            {
-                                                <div class="">
-
-                                                    <span class="date" style="font-weight:bold">@history.Created.ToString("dd MMM yyyy")</span>
-                                                    <h6>@history.Description</h6>
-                                                    <span>By: <a href="" title="@history.User!.FullName">@history.User.FullName</a></span>
-                                                    <div class="">
-                                                        @if (history.Description!.Contains("New Ticket Created"))
-                                                        {
-                                                            <p>A ticket was added</p>
-                                                        }
-                                                        else if (history.PropertyName!.Equals("ticketComment") || history.PropertyName.Equals("TicketAttachment"))
-                                                        {
-                                                            <p>A <b>@history.PropertyName</b> was added.</p>
-                                                        }
-                                                        else
-                                                        {
-                                                            <p>The ticket <b>@history.PropertyName</b> was edited</p>
-                                                            <p>@($"Previous {history.PropertyName}: ") <span style="color:red">@history.OldValue</span></p>
-                                                            <p>@($"Current {history.PropertyName}: ") <span style="color:green">@history.NewValue</span></p>
-
-                                                        }
-                                                    </div>
-                                                </div>
-                                                <hr />
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="main-content-body tab-pane p-4 border-top-0" id="comments">
-                                <div class="card-header">
-                                    <h2>Comments</h2>
-                                </div>
-                                <div class="card-body" style="overflow-y:auto;height:600px;">
-
-                                    @if (Model.SubmitterUserId == UserManager.GetUserId(User) || Model.DeveloperUserId == UserManager.GetUserId(User) || User.IsInRole("Admin") || projectManager?.Id == UserManager.GetUserId(User))
+        <!-- Row -->
+        <div class="row row-sm">
+            <div class="col-lg-12 col-md-12">
+                <div class="card custom-card main-content-body-profile">
+                    <div class="tab-content">
+                        <div class="main-content-body tab-pane p-4 border-top-0 active" id="about">
+                            <div class="card-body p-0 border p-0 rounded-10">
+                                <div class="p-4">
+                                    @if (Model.DeveloperUser != null)
                                     {
-                                        <div class="comment-respond">
-                                            <h4 class="title">Post a comment</h4>
-                                            <form asp-action="AddTicketComment" asp-controller="Tickets">
-                                                <div class="row row-md-10">
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <input type="hidden" asp-for="@Model.Id" name="TicketId" />
-                                                            <label for="Comment" name="Comment">Body</label>
-                                                            <textarea id="form-control editor" class="form-control" name="Comment"></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <div class="form-submit">
-                                                        <input name="submit" type="submit" id="submit" class="button-rounded" value="Post Comment">
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
+                                        <p>Developer: <span>@Model.DeveloperUser?.FullName</span></p>
                                     }
                                     else
                                     {
-                                        <div class="axil-total-comment-post">
-                                            <div class="add-comment-button">
-                                                <p>You do not have access to post here.</p>
-                                            </div>
-                                        </div>
+                                        <a data-bs-target="#assignModal" data-bs-toggle="modal" class="btn btn-primary">Assign</a>
                                     }
-                                    @*Form and Logic for authorized users to add comments*@
-                                    <hr />
-                                    <h6>Comments</h6>
-                                    <ul class="right_chat comment-list mb-0">
-                                        @foreach (TicketComment comment in Model.Comments)
+
+                                    <p>Submitter: <span>@Model.SubmitterUser?.FullName</span></p>
+                                    <p>@Model.Description</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main-content-body tab-pane p-4 border-top-0" id="history">
+                            <div class="card-body border">
+                                <div class="col-sm-12 col-lg-12 col-xl-12">
+                                    <div class="card custom-card overflow-hidden">
+                                        @foreach (TicketHistory history in Model.History)
                                         {
-                                            <!-- Start Single Comment  -->
-                                            <li class="comment">
-                                                <div class="comment-body">
-                                                    <div class="single-comment">
-                                                        <div class="comment-img">
-                                                            <img src="@_BTFileService.ConvertByteArrayToFile(comment.User.ImageFileData, comment.User.ImageFileType, DefaultImage.BTUserImage)" alt="Author Images" style="height:40px;width:40px">
+                                            <div class="">
+
+                                                <span class="date" style="font-weight:bold">@history.Created.ToString("dd MMM yyyy")</span>
+                                                <h6>@history.Description</h6>
+                                                <span>By: <a href="" title="@history.User!.FullName">@history.User.FullName</a></span>
+                                                <div class="">
+                                                    @if (history.Description!.Contains("New Ticket Created"))
+                                                    {
+                                                        <p>A ticket was added</p>
+                                                    }
+                                                    else if (history.PropertyName!.Equals("ticketComment") || history.PropertyName.Equals("TicketAttachment"))
+                                                    {
+                                                        <p>A <b>@history.PropertyName</b> was added.</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>The ticket <b>@history.PropertyName</b> was edited</p>
+                                                        <p>@($"Previous {history.PropertyName}: ") <span style="color:red">@history.OldValue</span></p>
+                                                        <p>@($"Current {history.PropertyName}: ") <span style="color:green">@history.NewValue</span></p>
+
+                                                    }
+                                                </div>
+                                            </div>
+                                            <hr />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main-content-body tab-pane p-4 border-top-0" id="comments">
+                            <div class="card-header">
+                                <h2>Comments</h2>
+                            </div>
+                            <div class="card-body" style="overflow-y:auto;height:600px;">
+
+                                @if (Model.SubmitterUserId == UserManager.GetUserId(User) || Model.DeveloperUserId == UserManager.GetUserId(User) || User.IsInRole("Admin") || projectManager?.Id == UserManager.GetUserId(User))
+                                {
+                                    <div class="comment-respond">
+                                        <h4 class="title">Post a comment</h4>
+                                        <form asp-action="AddTicketComment" asp-controller="Tickets">
+                                            <div class="row row-md-10">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <input type="hidden" asp-for="@Model.Id" name="TicketId" />
+                                                        <label for="Comment" name="Comment">Body</label>
+                                                        <textarea id="form-control editor" class="form-control" name="Comment"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-submit">
+                                                    <input name="submit" type="submit" id="submit" class="button-rounded" value="Post Comment">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="axil-total-comment-post">
+                                        <div class="add-comment-button">
+                                            <p>You do not have access to post here.</p>
+                                        </div>
+                                    </div>
+                                }
+                                @*Form and Logic for authorized users to add comments*@
+                                <hr />
+                                <h6>Comments</h6>
+                                <ul class="right_chat comment-list mb-0">
+                                    @foreach (TicketComment comment in Model.Comments)
+                                    {
+                                        <!-- Start Single Comment  -->
+                                        <li class="comment">
+                                            <div class="comment-body">
+                                                <div class="single-comment">
+                                                    <div class="comment-img">
+                                                        <img src="@_BTFileService.ConvertByteArrayToFile(comment.User.ImageFileData, comment.User.ImageFileType, DefaultImage.BTUserImage)" alt="Author Images" style="height:40px;width:40px">
+                                                    </div>
+                                                    <div class="comment-inner">
+                                                        <h6 class="commenter">
+                                                            <a class="hover-flip-item-wrapper" href="#">
+
+                                                                <span>@comment.User!.FullName</span>
+
+                                                            </a>
+                                                        </h6>
+                                                        <div class="comment-meta">
+                                                            <div class="time-spent">@comment.Created.ToString("MMM dd, yyyy")</div>
+                                                            <div class="reply-edit">
+                                                            </div>
                                                         </div>
-                                                        <div class="comment-inner">
-                                                            <h6 class="commenter">
-                                                                <a class="hover-flip-item-wrapper" href="#">
-
-                                                                    <span>@comment.User!.FullName</span>
-
-                                                                </a>
-                                                            </h6>
-                                                            <div class="comment-meta">
-                                                                <div class="time-spent">@comment.Created.ToString("MMM dd, yyyy")</div>
-                                                                <div class="reply-edit">
-                                                                </div>
-                                                            </div>
-                                                            <div class="comment-text">
-                                                                <p class="b2">
-                                                                    @comment.Comment
-                                                                </p>
-                                                            </div>
+                                                        <div class="comment-text">
+                                                            <p class="b2">
+                                                                @comment.Comment
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </li>
-                                        }
-                                    </ul>
-                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
                             </div>
-                            <div class="main-content-body tab-pane p-4 border-top-0" id="attachments">
+                        </div>
+                        <div class="main-content-body tab-pane p-4 border-top-0" id="attachments">
 
-                                <div class="header">
-                                    <h2>Attachments</h2>
+                            <div class="header">
+                                <h2>Attachments</h2>
+                            </div>
+
+                            <div class="body">
+                                <div class="row clearfix">
+                                    <div>
+                                        @if (Model.SubmitterUserId == UserManager.GetUserId(User) || Model.DeveloperUserId == UserManager.GetUserId(User) || User.IsInRole("Admin") || projectManager?.Id == UserManager.GetUserId(User))
+                                        {
+                                            <form asp-action="AddTicketAttachment" asp-controller="Tickets" enctype="multipart/form-data" method="post">
+                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                <input type="hidden" asp-for="@Model.Id" name="TicketId">
+                                                <div class="media-body ml-3">
+                                                    <label>
+                                                        Description
+                                                        <input name="Description" type="text" class="form-control" />
+                                                    </label><br />
+                                                    <label class="btn btn-outline-primary btn-sm">
+                                                        <input name="FormFile" type="file" class="form-control-file" />
+                                                    </label>
+                                                    <button type="submit" class="btn btn-outline-secondary btn-sm md-btn-flat">Submit</button>
+                                                </div>
+                                            </form>
+                                        }
+                                    </div>
                                 </div>
 
-                                <div class="body">
-                                    <div class="row clearfix">
-                                        <div>
-                                            @if (Model.SubmitterUserId == UserManager.GetUserId(User) || Model.DeveloperUserId == UserManager.GetUserId(User) || User.IsInRole("Admin") || projectManager?.Id == UserManager.GetUserId(User))
-                                            {
-                                                <form asp-action="AddTicketAttachment" asp-controller="Tickets" enctype="multipart/form-data" method="post">
-                                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                                    <input type="hidden" asp-for="@Model.Id" name="TicketId">
-                                                    <div class="media-body ml-3">
-                                                        <label>
-                                                            Description
-                                                            <input name="Description" type="text" class="form-control" />
-                                                        </label><br />
-                                                        <label class="btn btn-outline-primary btn-sm">
-                                                            <input name="FormFile" type="file" class="form-control-file" />
-                                                        </label>
-                                                        <button type="submit" class="btn btn-outline-secondary btn-sm md-btn-flat">Submit</button>
-                                                    </div>
-                                                </form>
-                                            }
-                                        </div>
-                                    </div>
+
+                                @* Ticket attachments part 2 here *@
 
 
-                                    @* Ticket attachments part 2 here *@
-
-
-                                    <hr />
-                                    <h6>Attachments</h6>
-                                    <div class="container">
-                                        <div class="row">
-                                            @if(Model.Attachments != null)
-                                            {    
+                                <hr />
+                                <h6>Attachments</h6>
+                                <div class="container">
+                                    <div class="row">
+                                        @if (Model.Attachments != null)
+                                        {
                                             @foreach (TicketAttachment item in Model.Attachments)
                                             {
                                                 <div class="col col-sm-2">
@@ -259,69 +260,103 @@
                                                     </div>
                                                 </div>
                                             }
-                                            }
-                                        </div>
+                                        }
                                     </div>
                                 </div>
-
                             </div>
-                            <div class="main-content-body tab-pane p-4 border-top-0" id="edit">
-                                <div class="card-body p-0 border p-0 rounded-10">
-                                    <div class="p-4">
-                                        <form method="post" asp-action="Edit">
-                                            <div class="row row-sm">
-                                                <div class="col-lg-12 col-md-12 col-md-12">
-                                                    <div class="card custom-card">
-                                                        <div class="card-body">
-                                                            <input type="hidden" asp-for="ProjectId" />
+
+                        </div>
+                        <div class="main-content-body tab-pane p-4 border-top-0" id="edit">
+                            <div class="card-body p-0 border p-0 rounded-10">
+                                <div class="p-4">
+                                    <form asp-action="Edit">
+                                        <div class="row row-sm">
+                                            <div class="col-lg-12 col-md-12 col-md-12">
+                                                <div class="card custom-card">
+                                                    <div class="card-body">
+                                                        <input type="hidden" asp-for="ProjectId" />
+                                                        <div class="form-group">
+                                                            <label asp-for="TicketTypeId" class="control-label"></label>
+                                                            <select asp-for="TicketTypeId" class="form-control" asp-items="ViewBag.TicketTypeId"></select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label asp-for="TicketPriorityId" class="control-label"></label>
+                                                            <select asp-for="TicketPriorityId" class="form-control" asp-items="ViewBag.TicketPriorityId"></select>
+                                                        </div>
+                                                        @if (User.IsInRole("Admin") || projectManager?.Id == UserManager.GetUserId(User))
+                                                        {
                                                             <div class="form-group">
-                                                                <label asp-for="TicketTypeId" class="control-label"></label>
-                                                                <select asp-for="TicketTypeId" class="form-control" asp-items="ViewBag.TicketTypeId"></select>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label asp-for="TicketPriorityId" class="control-label"></label>
-                                                                <select asp-for="TicketPriorityId" class="form-control" asp-items="ViewBag.TicketPriorityId"></select>
-                                                            </div>
-                                                            @if (User.IsInRole("Admin") || projectManager?.Id == UserManager.GetUserId(User))
-                                                            {
-                                                                <div class="form-group">
-                                                                    <label asp-for="TicketStatusId" class="control-label"></label>
+                                                                <label asp-for="TicketStatusId" class="control-label"></label>
                                                                 <select asp-for="TicketStatusId" class="form-control" asp-items="ViewBag.TicketStatusId"></select>
-                                                            </div>}
-                                                            <div class="form-group">
-                                                                <label asp-for="Title" class="control-label"></label>
-                                                                <input asp-for="Title" class="form-control" />
-                                                                <span asp-validation-for="Title" class="text-danger"></span>
                                                             </div>
-                                                            <div class="ql-wrapper ql-wrapper-demo mb-3">
-                                                                <label asp-for="Description" class="control-label"></label>
-                                                                <input asp-for="Description" id="quillEditor" />
-                                                            </div>
+                                                        }
+                                                        <div class="form-group">
+                                                            <label asp-for="Title" class="control-label"></label>
+                                                            <input asp-for="Title" class="form-control" />
+                                                            <span asp-validation-for="Title" class="text-danger"></span>
                                                         </div>
-
-                                                        <div class="card-footer mb-1">
-                                                        <form method="post" asp-action="Archive">
-                                                                <input type="submit" class="btn btn-primary" value="Archive"/>
-                                                            </form>
-                                                            
-                                                            <input type="submit" value="Edit" class="btn btn-primary" />
+                                                        <div class="ql-wrapper ql-wrapper-demo mb-3">
+                                                            <label asp-for="Description" class="control-label"></label>
+                                                            <input asp-for="Description" id="quillEditor" />
                                                         </div>
+                                                    </div>
 
+                                                    <div class="card-footer mb-1">
+
+                                                        <form asp-action="ArchiveToggle" asp-controller="Tickets">
+                                                            <input type="hidden" asp-for="Id" />
+                                                            @if (Model.Archived == true)
+                                                            {
+                                                                <input type="submit" class="btn btn-outline-danger" value="Unarchive">
+                                                            }
+                                                            else
+                                                            {
+                                                                <input type="submit" class="btn btn-outline-success" value="Archive">
+                                                            }
+                                                        </form>
+                                                    <input type="submit" value="Edit" class="btn btn-primary" />
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- End Row -->
             </div>
         </div>
-
+        <!-- End Row -->
+    </div>
 </div>
+
+<!-- Assign modal -->
+@* <div class="modal" id="assignModal">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Assign Developer</h6><button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" asp-action="AssignTicket" asp-controller="Tickets">
+                    <input asp-for="Id" hidden />
+                    <p>Description:  @Model.Description</p>
+                    <div class="form-group">
+                        <label class="col-form-label">Select Developers</label>
+                        <select required asp-for="DeveloperId" class="form-control" asp-items="@Model.Developers">
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <input type="submit" value="Assign" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> *@
+<!-- Assign Modal -->
 @section Scripts{
     @* SweetAlert *@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

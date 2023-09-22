@@ -74,7 +74,7 @@ namespace TrackingBugs.Controllers
 
         // GET: Projects/Create
         [Authorize(Roles = "Admin,ProjectManager")]
-        public async Task<IActionResult> CreateAsync()
+        public async Task<IActionResult> Create()
         {
             ViewData["CompanyId"] = new SelectList(_context.Companies, "Id", "Name");
             ViewData["ProjectPriorityId"] = new SelectList((await _projectService.GetProjectPrioritiesAsync()), "Id", "Name");
@@ -277,7 +277,6 @@ namespace TrackingBugs.Controllers
             return View(viewModel);
         }
 
-        // POST: Projects/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,ProjectManager")]
@@ -302,6 +301,26 @@ namespace TrackingBugs.Controllers
             return View(viewModel);
 
 
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,ProjectManager")]
+        public async Task<IActionResult> ArchiveToggle(int? id)
+        {
+            if (id == null || id == 0) return NotFound();
+
+            Project? project = await _projectService.GetProjectAsync(id, _companyId);
+            if (project == null) return NotFound();
+            if (project.Archived == false)
+            {
+                await _projectService.ArchiveProjectAsync(id, _companyId);
+            }
+            else
+            {
+                await _projectService.UnarchiveProjectAsync(id, _companyId);
+            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }

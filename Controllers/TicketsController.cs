@@ -260,13 +260,22 @@ namespace TrackingBugs.Controllers
             return View(nameof(Details), ticket);
         }
 
-        // POST: Tickets/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Archive(int id)
+        public async Task<IActionResult> ArchiveToggle(int? id)
         {
-            Ticket ticket = await _ticketService.GetTicketByIdAsync(id, _companyId);
-            await _ticketService.ArchiveTicketAsync(ticket);
+            if (id == null || id == 0) return NotFound();
+
+            Ticket? ticket = await _ticketService.GetTicketByIdAsync(id, _companyId);
+            if (ticket == null) return NotFound();
+            if (ticket.Archived == false)
+            {
+                await _ticketService.ArchiveTicketAsync(ticket);
+            }
+            else
+            {
+                await _ticketService.RestoreTicketAsync(ticket);
+            }
             return RedirectToAction(nameof(Index));
         }
 

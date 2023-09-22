@@ -2,7 +2,8 @@
 @{
     ViewData["Title"] = "Create";
 }
-<div class="col-lg-6 col-md-12">
+
+<div class="p-4">
     <div class="card custom-card">
         <div class="card-body">
             <div>
@@ -45,9 +46,6 @@
                     </div>
                 </div>
                 <div class="row row-xs align-items-center mg-b-20">
-                    <div class="col-md-4">
-                        <label class="mg-b-0">Message</label>
-                    </div>
                     <div class="ql-wrapper ql-wrapper-demo mb-3">
                         <label asp-for="Message" class="control-label"></label>
                         <input asp-for="Message" id="quillEditor" />
@@ -56,7 +54,7 @@
                 <div class="form-group row justify-content-end mb-0">
                     <div class="col-md-8 pl-md-2">
                         <input type="submit" class="btn ripple btn-primary pd-x-30 mg-r-5" value="Send Invite" />
-                        <button class="btn ripple btn-secondary pd-x-30">Cancel</button>
+                        <a class="btn ripple btn-secondary pd-x-30">Cancel</a>
                     </div>
                 </div>
             </form>

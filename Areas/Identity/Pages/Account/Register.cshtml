@@ -1,84 +1,64 @@
 ﻿@page
 @model RegisterModel
+
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Register New Company";
+    Layout = "_SpruhaLoginLayout.cshtml";
 }
-
-<h1>@ViewData["Title"]</h1>
-
-<div class="row">
-    <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.FirstName" class="form-control" autocomplete="username" aria-required="true" placeholder="First Name" />
-                <label asp-for="Input.FirstName">FirstName</label>
-                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.LastName" class="form-control" autocomplete="username" aria-required="true" placeholder="Last Name" />
-                <label asp-for="Input.LastName">LastName</label>
-                <span asp-validation-for="Input.LastName" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.CompanyName" class="form-control" autocomplete="username" aria-required="true" placeholder="Company Name" />
-                <label asp-for="Input.CompanyName">CompanyName</label>
-                <span asp-validation-for="Input.CompanyName" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.CompanyDescription" class="form-control" autocomplete="username" aria-required="true" placeholder="Company Description" />
-                <label asp-for="Input.CompanyDescription">CompanyDescription</label>
-                <span asp-validation-for="Input.CompanyDescription" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label asp-for="Input.Email">Email</label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.Password">Password</label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-        </form>
+<div class="col-lg-6 col-xl-5 d-none d-lg-block text-center bg-primary details">
+    <div class="mt-5 pt-5 p-2 pos-absolute">
+        <img src="~/assets/img/brand/logo-light.png" class="header-brand-img mb-4" alt="logo">
+        <div class="clearfix"></div>
+        <img src="~/assets/img/svgs/user.svg" class="ht-100 mb-0" alt="user">
+        <h5 class="mt-4 text-white">Create Your Account</h5>
+        <span class="tx-white-6 tx-13 mb-5 mt-xl-0">Signup to create, discover and connect with the global community</span>
     </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
+</div>
+<div class="col-lg-6 col-xl-7 col-xs-12 col-sm-12 login_form ">
+    <div class="main-container container-fluid">
+        <div class="row row-sm">
+            <div class="card-body mt-2 mb-2">
+                <img src="~/assets/img/brand/logo-light.png" class="d-lg-none header-brand-img text-start float-start mb-4 error-logo-light" alt="logo">
+                <img src="~/assets/img/brand/logo.png" class=" d-lg-none header-brand-img text-start float-start mb-4 error-logo" alt="logo">
+                <div class="clearfix"></div>
+                <h5 class="text-start mb-2">Signup for Free</h5>
+                <p class="mb-4 text-muted tx-13 ms-0 text-start">It's free to signup and only takes a minute.</p>
+                <form>
+                    <div class="form-group text-start">
+                        <label asp-for="Input.FirstName"></label>
+                        <input asp-for="Input.FirstName" class="form-control" autocomplete="firstname" aria-required="true" placeholder="Enter your first name">
                     </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
+                    <div class="form-group text-start">
+                        <label asp-for="Input.LastName"></label>
+                        <input asp-for="Input.LastName" class="form-control" autocomplete="lastname" aria-required="true" placeholder="Enter your last name">
+                    </div>
+                    <div class="form-group text-start">
+                        <label asp-for="Input.CompanyName"></label>
+                        <input asp-for="Input.CompanyName" class="form-control" autocomplete="companyname" aria-required="true" placeholder="Enter your company name">
+                    </div>
+                    <div class="form-group text-start">
+                        <label asp-for="Input.CompanyDescription"></label>
+                        <input asp-for="Input.CompanyDescription" class="form-control" autocomplete="companydescription" aria-required="true" placeholder="Enter your company description">
+                    </div>
+                    <div class="form-group text-start">
+                        <label asp-for="Input.Email"></label>
+                        <input asp-for="Input.Email" class="form-control" autocomplete="email" aria-required="true" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group text-start">
+                        <label asp-for="Input.Password"></label>
+                        <input asp-for="Input.Password" class="form-control" autocomplete="password" aria-required="true" placeholder="Enter your password">
+                    </div>
+                    <div class="form-group text-start">
+                        <label asp-for="Input.ConfirmPassword"></label>
+                        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="confirmpassword" aria-required="true" placeholder="Enter your password">
+                    </div>
+                    <button id="registerSubmit" type="submit" class="btn ripple btn-main-primary btn-block">Create Account</button>
+                </form>
+                <div class="text-start mt-5 ms-0">
+                    <p class="mb-0">Already have an account? <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Sign In</a></p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
