@@ -9,7 +9,7 @@
 <div class="main-content">
     <div class="main-container container-fluid">
         <div class="inner-body">
-            @if (Model != null)
+            @if (Model.Count() != 0)
             {
                 <table id="ticketTable" class="table">
                     <thead>
@@ -58,14 +58,17 @@
                                     @Html.DisplayFor(modelItem => ticket.TicketStatus.Name)
                                 </td>
                                 <td>
-                                    @if (ticket.Archived == true)
-                                    {
-                                        <a asp-action="ArchiveToggle" asp-controller="Tickets" method="post" asp-route-id="@ticket.Id" class="btn btn-outline-danger">Unarchive</a>
-                                    }
-                                    else
-                                    {
-                                        <a asp-action="ArchiveToggle" asp-controller="Tickets" method="post" asp-route-id="@ticket.Id" class="btn btn-outline-danger">Archive</a>
-                                    }
+                                    <form asp-action="ArchiveToggle" asp-controller="Tickets">
+                                        <input type="hidden" asp-for="@ticket.Id" name="id"/>
+                                        @if (ticket.Archived == true)
+                                        {
+                                            <input type="submit" class="btn btn-outline-success" value="Unarchive">
+                                        }
+                                        else
+                                        {
+                                            <input type="submit" class="btn btn-outline-danger" value="Archive">
+                                        }
+                                    </form>
                                     <a class="btn btn-danger" asp-action="Details" asp-route-id="@ticket.Id">Details</a>
                                 </td>
                             </tr>

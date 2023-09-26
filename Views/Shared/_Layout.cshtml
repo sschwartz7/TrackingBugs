@@ -2,6 +2,7 @@
 @inject SignInManager<BTUser> SignInManager
 @inject UserManager<BTUser> UserManager
 @inject IBTRoleService _RoleService
+@inject IBTNotificationService _NotificationService
 
 @{
     BTUser? appUser = await UserManager.GetUserAsync(User);
@@ -141,17 +142,20 @@
             <div class="main-menu main-sidebar main-sidebar-sticky side-menu">
                 <div class="main-sidebar-header main-container-1 active">
                     <div class="sidemenu-logo">
-                        <a class="main-logo" asp-action="Dashboard" asp-controller="Home">
-                            <img src="~/img/Bright Sight Script.png" class="header-brand-img desktop-logo" alt="logo">
-                            <img src="~/img/Bright Sight Script (1).png" class="header-brand-img icon-logo" alt="logo">
-                            <img src="~/img/Bright Sight Script.png" class="header-brand-img desktop-logo theme-logo" alt="logo">
-                            <img src="~/img/Bright Sight Script (1).png" class="header-brand-img icon-logo theme-logo" alt="logo">
+                        <a class="main-logo" asp-action="Dashboard" asp-controller="Home" >
+                            <img src="~/img/Bright Sight Script.png" class="header-brand-img desktop-logo" alt="logo"
+                                 style="width:100px">
+                            <img src="~/img/Bright Sight Script (1).png" class="header-brand-img icon-logo" alt="logo"
+                                 style="width:50px">
+                            <img src="~/img/Bright Sight Script.png" class="header-brand-img desktop-logo theme-logo" alt="logo"
+                                 style="width:100px">
+                            <img src="~/img/Bright Sight Script (1).png" class="header-brand-img icon-logo theme-logo" alt="logo"
+                                 style="width:50px">
                         </a>
                     </div>
                     <div class="main-sidebar-body main-body-1">
                         <div class="slide-left disabled" id="slide-left"><i class="fe fe-chevron-left"></i></div>
                         <ul class="menu-nav nav">
-                            <li class="nav-header"><span class="nav-label">Dashboard</span></li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-action="Dashboard" asp-controller="Home">
                                     <span class="shape1"></span>
@@ -165,7 +169,7 @@
                                 <a class="nav-link" asp-action="Details" asp-controller="Companies" asp-route-id="@appUser?.CompanyId">
                                     <span class="shape1"></span>
                                     <span class="shape2"></span>
-                                    <i class="ti-home sidemenu-icon menu-icon "></i>
+                                    <i class="ti-id-badge sidemenu-icon menu-icon "></i>
                                     <span class="sidemenu-label">Company</span>
                                 </a>
 
@@ -174,7 +178,7 @@
                                 <a class="nav-link with-sub" href="javascript:void(0)">
                                     <span class="shape1"></span>
                                     <span class="shape2"></span>
-                                    <i class="ti-wallet sidemenu-icon menu-icon "></i>
+                                    <i class="ti-agenda sidemenu-icon menu-icon "></i>
                                     <span class="sidemenu-label">
                                         Projects
                                     </span>
@@ -203,7 +207,7 @@
                                 <a class="nav-link with-sub" href="javascript:void(0)">
                                     <span class="shape1"></span>
                                     <span class="shape2"></span>
-                                    <i class="ti-shopping-cart-full sidemenu-icon menu-icon "></i>
+                                    <i class="ti-receipt sidemenu-icon menu-icon "></i>
                                     <span class="sidemenu-label">Tickets</span>
                                     <i class="angle fe fe-chevron-right"></i>
                                 </a>
@@ -226,8 +230,15 @@
                                 <a class="nav-link" asp-action="Index" asp-controller="Notifications">
                                     <span class="shape1"></span>
                                     <span class="shape2"></span>
-                    
-                                    <i class="ti-home sidemenu-icon menu-icon "></i>
+                                    @if((await _NotificationService.GetNotificationsByUserIdAsync(appUser.Id)).Count() != 0)
+                                    {
+                                        <i class="ti-email sidemenu-icon menu-icon "></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="ti-email sidemenu-icon menu-icon"
+                                           style="color:red !important; "></i>
+                                    }
                                     <span class="sidemenu-label">Notifications</span>
                                 </a>
                             </li>

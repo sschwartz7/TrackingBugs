@@ -7,6 +7,7 @@
 
 @{
     BTUser? projectManager = await _ProjectService.GetProjectManagerAsync(Model.ProjectId)!;
+    SelectList devs = new SelectList(await _ProjectService.GetProjectMembersByRoleAsync(Model.ProjectId, nameof(BTRoles.Developer), User.Identity!.GetCompanyId()), "Id", "FullName");
     ViewData["Title"] = "Details";
 }
 
@@ -87,7 +88,7 @@
                                     }
                                     else
                                     {
-                                        <a data-bs-target="#assignModal" data-bs-toggle="modal" class="btn btn-primary">Assign</a>
+                                        <a data-bs-target="#assignModal" data-bs-toggle="modal" class="btn btn-primary p-2">Assign</a>
                                     }
 
                                     <p>Submitter: <span>@Model.SubmitterUser?.FullName</span></p>
@@ -269,7 +270,7 @@
                         <div class="main-content-body tab-pane p-4 border-top-0" id="edit">
                             <div class="card-body p-0 border p-0 rounded-10">
                                 <div class="p-4">
-                                    <form asp-action="Edit">
+                                    <form asp-action="Edit" method="post">
                                         <div class="row row-sm">
                                             <div class="col-lg-12 col-md-12 col-md-12">
                                                 <div class="card custom-card">
@@ -300,26 +301,23 @@
                                                             <input asp-for="Description" id="quillEditor" />
                                                         </div>
                                                     </div>
-
-                                                    <div class="card-footer mb-1">
-
-                                                        <form asp-action="ArchiveToggle" asp-controller="Tickets">
-                                                            <input type="hidden" asp-for="Id" />
-                                                            @if (Model.Archived == true)
-                                                            {
-                                                                <input type="submit" class="btn btn-outline-danger" value="Unarchive">
-                                                            }
-                                                            else
-                                                            {
-                                                                <input type="submit" class="btn btn-outline-success" value="Archive">
-                                                            }
-                                                        </form>
                                                     <input type="submit" value="Edit" class="btn btn-primary" />
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
+                                    <form asp-action="ArchiveToggle" asp-controller="Tickets">
+                                        <input type="hidden" asp-for="Id" />
+                                        @if (Model.Archived == true)
+                                        {
+                                            <input type="submit" class="btn btn-outline-success" value="Unarchive">
+                                        }
+                                        else
+                                        {
+                                            <input type="submit" class="btn btn-outline-danger" value="Archive">
+                                        }
+                                    </form>
+
                                 </div>
                             </div>
                         </div>
@@ -332,7 +330,7 @@
 </div>
 
 <!-- Assign modal -->
-@* <div class="modal" id="assignModal">
+<div class="modal" id="assignModal">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -340,22 +338,23 @@
             </div>
             <div class="modal-body">
                 <form method="post" asp-action="AssignTicket" asp-controller="Tickets">
-                    <input asp-for="Id" hidden />
+                    <input asp-for="Id" name="Ticket.Id" hidden />
                     <p>Description:  @Model.Description</p>
                     <div class="form-group">
                         <label class="col-form-label">Select Developers</label>
-                        <select required asp-for="DeveloperId" class="form-control" asp-items="@Model.Developers">
+                        <select required asp-for="DeveloperUserId" name="DeveloperId" class="form-control" asp-items="@devs">
                             <option></option>
                         </select>
                     </div>
                     <div class="form-group mt-3">
                         <input type="submit" value="Assign" class="btn btn-primary" />
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-</div> *@
+</div>
 <!-- Assign Modal -->
 @section Scripts{
     @* SweetAlert *@

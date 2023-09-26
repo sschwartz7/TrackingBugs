@@ -59,9 +59,5 @@ namespace TrackingBugs.Models
         public virtual ICollection<BTUser> Members { get; set; } = new HashSet<BTUser>();
         public virtual ICollection<Ticket> Tickets { get; set; } = new HashSet<Ticket>();
 
-        public static implicit operator Project(Microsoft.Build.Evaluation.Project v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -11,6 +11,15 @@
     BTUser? projectManager = await _ProjectService.GetProjectManagerAsync(Model.Id)!;
     BTUser? appUser = await UserManager.GetUserAsync(User);
 
+    List<BTUser> delvelopers = await _RoleService.GetUsersInRoleAsync(nameof(BTRoles.Developer), User.Identity!.GetCompanyId());
+    List<BTUser> submitters = await _RoleService.GetUsersInRoleAsync(nameof(BTRoles.Submitter), User.Identity!.GetCompanyId());
+    List<BTUser> usersList = submitters.Concat(delvelopers).ToList();
+    IEnumerable<string> currentMembers = Model.Members.Select(u => u.Id);
+    MultiSelectList members = new MultiSelectList(usersList, "Id", "FullName", currentMembers);
+
+    IEnumerable<BTUser> projectManagers = await _RoleService.GetUsersInRoleAsync(nameof(BTRoles.ProjectManager), User.Identity!.GetCompanyId());
+    SelectList PMList = new SelectList(projectManagers, "Id", "FullName", projectManager);
+
 }
 
 
@@ -47,7 +56,7 @@
                                         <li><strong>Start Date:</strong> <span class="">@Model.StartDate</span></li>
                                         <li><strong>Deadline:</strong> <span class="">@Model.EndDate</span></li>
                                         <li><strong>Priority:</strong> <span class="">@Model.ProjectPriority.Name</span></li>
-                                        <li><strong></strong>@(Model.Archived == true ? "Inactive" : "Active")</strong></li>
+                                        <li><strong>@(Model.Archived == true ? "Inactive" : "Active")</strong></li>
                                     </ul>
                                 </div>
                             </div>
@@ -130,7 +139,11 @@
                                 <div class="card-body border pd-b-10">
                                     @if (User.IsInRole("ProjectManager") || User.IsInRole("Admin"))
                                     {
-                                        <a asp-action="AssignProjectMembers" asp-route-id="@Model.Id" class="btn btn-primary my-3">Assign Members</a>
+                                        <a data-bs-target="#assignMembersModal" data-bs-toggle="modal" class="btn btn-primary p-2">Assign Members</a>
+                                    }
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a data-bs-target="#assignManagerModal" data-bs-toggle="modal" class="btn btn-primary p-2">Assign Manager</a>
                                     }
                                     <!-- row -->
                                     <div class="row row-sm">
@@ -233,7 +246,7 @@
                             <div class="main-content-body tab-pane p-4 border-top-0" id="edit">
                                 <div class="card-body p-0 border p-0 rounded-10">
                                     <div class="p-4">
-                                        <form asp-action="Edit">
+                                        <form asp-action="Edit" method="post">
                                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                             <input type="hidden" asp-for="Id" />
                                             <input type="hidden" asp-for="Created" />
@@ -263,20 +276,22 @@
                                                 <input asp-for="Description" id="quillEditor" />
                                             </div>
                                             <div class="row">
-                                            <div class="form-group form-check">
-                                                @if (Model.Archived == true)
-                                                {
-                                                    <a asp-action="ArchiveToggle" asp-controller="Projects" asp-route-id="@Model.Id" class="btn btn-outline-success">Unarchive</a>
-                                                }
-                                                else
-                                                {
-                                                    <a asp-action="ArchiveToggle" asp-controller="Projects" asp-route-id="@Model.Id" class="btn btn-outline-danger">Archive</a>
-                                                }
-                                            </div>
+
                                             <div class="form-group">
                                                 <input type="submit" value="Save" class="btn btn-primary" />
                                             </div>
                                             </div>
+                                        </form>
+                                        <form asp-action="ArchiveToggle" asp-controller="Projects">
+                                            <input type="hidden" asp-for="Id" />
+                                            @if (Model.Archived == true)
+                                            {
+                                                <input type="submit" class="btn btn-outline-success" value="Unarchive">
+                                            }
+                                            else
+                                            {
+                                                <input type="submit" class="btn btn-outline-danger" value="Archive">
+                                            }
                                         </form>
                                     </div>
                                 </div>
@@ -285,6 +300,46 @@
                     </div>
                 </div>
                 <!-- End Row -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="assignMembersModal">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Assign Members</h6><button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="AssignProjectMembers" asp-controller="Projects" method="post" class="d-flex flex-column">
+                    <input type="hidden" asp-for="Id" name="Project.Id"/>
+                    <select asp-items="@members" asp-for="Members" name="SelectedMembers" class="form-control" multiple required>
+                    </select>
+                    <span asp-validation-for="Members" name="SelectedMembers" class="text-danger"></span>
+                    <button type="submit" class="btn btn-primary my-3">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="assignManagerModal">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Assign Manager</h6><button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="AssignPM" asp-controller="Projects" method="post" class="d-flex flex-column">
+                    <input type="hidden" name="ProjectId" asp-for="Id"/>
+                    <select asp-items="PMList" name="PMId">
+                        <option value="">Unassigned</option>
+                    </select>
+                    <span name="PMId" asp-validation-for="@Model.Members" class="text-danger"></span>
+                    <button type="submit" class="btn btn-primary my-3">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </form>
             </div>
         </div>
     </div>

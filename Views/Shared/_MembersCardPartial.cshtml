@@ -2,20 +2,21 @@
 @inject IBTRoleService _RoleService
 @inject IBTFileService _BTFileService
 
+
 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
 	<div class="card custom-card border">
 		<div class="card-body text-center">
 			<div class="user-lock text-center">
+                @if (User.IsInRole("Admin")){
 				<div class="dropdown text-end">
-					<a href="#" class="option-dots" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="fe fe-more-vertical"></i> </a>
-					<div class="dropdown-menu dropdown-menu-end shadow"> <a class="dropdown-item" href="#"><i class="fe fe-message-square me-2"></i> Message</a> <a class="dropdown-item" href="#"><i class="fe fe-edit-2 me-2"></i> Edit</a> <a class="dropdown-item" href="#"><i class="fe fe-eye me-2"></i> View</a> <a class="dropdown-item" href="#"><i class="fe fe-trash-2 me-2"></i> Delete</a> </div>
+                        <a asp-for="ManageUserRoles" class="option-dots" aria-haspopup="true" aria-expanded="true"> <i class="fe fe-more-vertical"></i> </a>
 				</div>
+                }
 				<img src="@_BTFileService.ConvertByteArrayToFile(Model?.ImageFileData, Model?.ImageFileType, DefaultImage.BTUserImage)" alt="Author Images" style="height:40px;width:40px">
 			</div>
-			<a href="profile.html"><h5 class=" mb-1 mt-3 main-content-label">@Model.FullName</h5></a>
+			<p><h5 class=" mb-1 mt-3 main-content-label">@Model.FullName</h5></p>
 			<p class="mb-2 mt-1 tx-inverse"></p>
 				<p class="text-muted text-center mt-1">@(string.Join(", ", await _RoleService.GetUserRolesAsync(Model)))</p>
-
 		</div>
 	</div>
 </div>
