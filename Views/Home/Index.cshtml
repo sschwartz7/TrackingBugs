@@ -15,7 +15,7 @@
         <div class="main-header-left">
             <a class="main-header-menu-icon" href="javascript:void(0)"
                id="mainSidebarToggle"><span></span></a>
-            <div class="hor-logo">
+            <div class="hor-logo" style="width: 50px">
                 <a class="main-logo" href="index.html">
                     <img src="~/img/Bright Sight Script (1).png" class="header-brand-img desktop-logo" alt="logo">
                     <img src="~/img/Bright Sight Script (1).png" class="header-brand-img desktop-logo-dark"
@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="main-header-center">
-            <div class="responsive-logo">
+            <div class="responsive-logo" style="width: 50px">
                 <a href="index.html"><img src="~/img/Bright Sight Script (1).png" class="mobile-logo height:" alt="logo"></a>
                 <a href="index.html">
                     <img src="~/img/Bright Sight Script (1).png" class="mobile-logo-dark"
@@ -65,10 +65,10 @@
             <div class="container">
                 <div class="row">
                     <div class="main-sidemenu navbar px-0">
-                        <a class="main-logo" href="index.html">
-                            <img src="../assets/img/brand/logo.png" class="header-brand-img desktop-logo"
+                        <a class="main-logo" href="index.html" style="width: 150px">
+                            <img src="~/img/Bright Sight Script.png" class="header-brand-img desktop-logo"
                                  alt="logo">
-                            <img src="../assets/img/brand/logo-light.png"
+                            <img src="~/img/Bright Sight Script.png"
                                  class="header-brand-img desktop-logo-dark" alt="logo">
                         </a>
                         <div class="slide-left disabled" id="slide-left">
@@ -78,11 +78,6 @@
                             </svg>
                         </div>
                         <ul class="side-menu">
-                            <li class="slide">
-                                <a class="side-menu__item active" data-bs-toggle="slide" href="#home">
-                                    <span class="side-menu__label">Home</span>
-                                </a>
-                            </li>
                             <li class="slide">
                                 <a class="side-menu__item" data-bs-toggle="slide" href="#Features">
                                     <span class="side-menu__label">Features</span>
@@ -123,14 +118,13 @@
                     <h6 class="pb-3">
                         Tracker is a full featured bug tracker for your companies productivity needs.
                     </h6>
-
                     <a asp-action="Dashboard" asp-controller="Home"
                        class="btn ripple btn-min w-lg mb-3 me-2 btn-light">
                         <i class="fe fe-play me-2"></i> Get Started
                     </a>
                 </div>
                 <div class="col-xl-6 col-lg-6 my-auto">
-                    <img src="~/assets/landing/images/market3.png" alt="">
+                    <img src="~/img/Bright Sight Script (1).png" alt="">
                 </div>
             </div>
         </div>
@@ -147,12 +141,7 @@
                 <div class="row">
                     <h4 class="text-center fw-semibold landing-card-header">Features</h4>
                     <span class="landing-title"></span>
-                    <h2 class="fw-semibold text-center">Spruha Main Features</h2>
-                    <p class="text-default mb-5 text-center">
-                        The Spruha admin template comes with
-                        ready-to-use features that are completely easy-to-use for any user, even for
-                        a beginner.
-                    </p>
+                    <h2 class="fw-semibold text-center">Tracker Main Features</h2>
                     <div class="row mt-7">
                         <div class="col-lg-3 col-md-12">
                             <div class="card features main-features main-features-1 wow fadeInUp reveal revealleft"
@@ -166,10 +155,9 @@
                                         </div>
                                     </div>
                                     <div class="text-left counter-body">
-                                        <h4 class="fw-bold">Unique Design</h4>
+                                        <h4 class="fw-bold">Multiple Projects</h4>
                                         <p class="mb-0">
-                                            Spruha has a unique design that you cannot compare
-                                            with any other templates. It has unique Design
+                                            Track multiple projects at the same time, with multiple tickets for each project.
                                         </p>
                                     </div>
                                 </div>
@@ -187,11 +175,9 @@
                                         </div>
                                     </div>
                                     <div class="text-left counter-body">
-                                        <h4 class="fw-bold">Quality &amp; Clean Code</h4>
+                                        <h4 class="fw-bold">Unified Design</h4>
                                         <p class="mb-0">
-                                            The Spruha admin code is maintained very cleanly and
-                                            well-structured with proper
-                                            comments.
+                                            Well put together coheisive design.
                                         </p>
                                     </div>
                                 </div>
@@ -209,10 +195,9 @@
                                         </div>
                                     </div>
                                     <div class="text-left counter-body">
-                                        <h4 class="fw-bold">Multiple Demos</h4>
+                                        <h4 class="fw-bold">Notifications</h4>
                                         <p class="mb-0">
-                                            We included multiple demos, preview video, and screen shots to
-                                            give a quick overview of our Dashlead admin template.
+                                            Notifications are provided both in app and through email
                                         </p>
                                     </div>
                                 </div>
@@ -230,11 +215,9 @@
                                         </div>
                                     </div>
                                     <div class="text-left counter-body">
-                                        <h4 class="fw-bold">Well Documentation</h4>
+                                        <h4 class="fw-bold">Text Editor</h4>
                                         <p class="mb-0">
-                                            The documentation provides clear-cut material and is instructed
-                                            with such a way
-                                            that every user can understand.
+                                            Rich text editor powered by _____, so your descriptions can go as in depth as you can imagine.
                                         </p>
                                     </div>
                                 </div>
@@ -260,33 +243,31 @@
                             <div class="statistics-info">
                                 <div class="row justify-content-center">
                                     <div class="col-xl-12">
-                                        <div class="card custom-card">
+                                        <div class="row">
                                             <form method="post" asp-action="ContactMe" class="contact-form--1 row">
-                                                <div class="col-lg-6 col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="contact-name">First Name</label>
-                                                        <input asp-for="FirstName">
-                                                    </div>
+                                                <div class="col-md-6">
+                                                    <label asp-for="FirstName" class="form-label p-2">First Name</label>
+                                                    <input asp-for="FirstName" type="text" class="form-control"
+                                                           placeholder="First Name" aria-label="First Name" required />
                                                 </div>
-                                                <div class="col-lg-6 col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="contact-phone">Last Name</label>
-                                                        <input asp-for="LastName">
-                                                    </div>
+                                                <div class="col-md-6">
+                                                    <label asp-for="LastName" class="form-label p-2">Last Name</label>
+                                                    <input asp-for="LastName" type="text" class="form-control"
+                                                           placeholder="Last Name" aria-label="Last Name" required />
                                                 </div>
                                                 <div class="col-12">
-                                                    <div class="form-group container-fluid">
-                                                        <label>Email</label>
-                                                        <input asp-for="Email">
-                                                    </div>
+                                                    <label asp-for="Email" class="form-label p-2">Email</label>
+                                                    <input asp-for="Email" type="text" class="form-control"
+                                                           placeholder="Email" aria-label="Email" required />
                                                 </div>
                                                 <div class="col-12">
-                                                    <div class="form-group container-fluid">
-                                                        <label for="contact-message">Message</label>
-                                                        <textarea id="editor" name="message"></textarea>
+                                                    <div class="ql-wrapper ql-wrapper-demo mb-3">
+                                                        <label for="contact-message" class="control-label"></label>
+                                                        <textarea name="message" id="summernote"></textarea>
                                                     </div>
+
                                                 </div>
-                                                <div class="col-12">
+                                                <div class="col-12 ">
                                                     <div class="form-submit">
                                                         <button type="submit" class="axil-button button-rounded btn-primary" style="width:75px">Submit</button>
                                                     </div>
@@ -313,7 +294,6 @@
     </div>
 </div>
 <!--app-content closed-->
-        </div>
 <div class="pos-relative">
     <div class="shape overflow-hidden bottom-footer-shape">
         <svg viewBox="0 0 2880 48" fill="none" xmsns="http://www.w3.org/2000/svg">
@@ -343,8 +323,15 @@
     </div>
 </div>
 <!-- FOOTER CLOSED -->
-    </div>
-
 <!-- BACK-TO-TOP -->
 <a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
 
+@section Scripts{
+    <script>
+        $('#summernote').summernote({
+            placeholder: 'Hello bootstrap 4',
+            tabsize: 3,
+            height: 300
+        });
+    </script>
+}

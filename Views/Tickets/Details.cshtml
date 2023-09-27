@@ -36,25 +36,28 @@
             <div class="col-lg-12 col-md-12">
                 <div class="card custom-card">
                     <div class="card-body">
-                        <div class="panel profile-cover">
-                            <div class="profile-cover__img">
-                                <img src="~/assets/img/users/1.jpg" alt="img" />
-                                <h3 class="h3">@Model.Title</h3>
-                            </div>
-                            <div class="profile-cover__action bg-img"></div>
-                            <div class="profile-cover__info">
-                                <ul class="nav">
-                                    @*Ticket date*@
-                                    <li><strong>Date Entered:</strong> <span class="">  @Model.Created</</span></li>
-                                    @*Project end date*@
-                                    <li><strong>Deadline:</strong> <span class="">  @Model.Project.EndDate</</span></li>
-                                    @*Ticket type*@
-                                    <li><strong>Type:</strong> <span class="">  @Model.TicketType?.Name</span></li>
-                                    @*Ticket priority*@
-                                    <li><strong>Priority:</strong> <span class="">  @Model.TicketPriority?.Name</span></li>
-                                    @*Ticket status*@
-                                    <li><strong>Status:</strong> <span class="">  @Model.TicketStatus?.Name</span></li>
-                                </ul>
+                        <div class="row">
+                            <div class="panel profile-cover">
+                                
+                                <div class="profile-cover__img">
+                                    <img src="~/assets/img/users/1.jpg" alt="img" />
+                                    <h3 class="h3">@Model.Title</h3>
+                                </div>
+                                <div class="profile-cover__action bg-img"></div>
+                                <div class="profile-cover__info">
+                                    <ul class="nav">
+                                        @*Ticket date*@
+                                        <li><strong>Date Entered:</strong> <span class="">  @Model.Created</</span></li>
+                                        @*Project end date*@
+                                        <li><strong>Deadline:</strong> <span class="">  @Model.Project.EndDate</</span></li>
+                                        @*Ticket type*@
+                                        <li><strong>Type:</strong> <span class="">  @Model.TicketType?.Name</span></li>
+                                        @*Ticket priority*@
+                                        <li><strong>Priority:</strong> <span class="">  @Model.TicketPriority?.Name</span></li>
+                                        @*Ticket status*@
+                                        <li><strong>Status:</strong> <span class="">  @Model.TicketStatus?.Name</span></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div class="profile-tab tab-menu-heading">
@@ -88,7 +91,7 @@
                                     }
                                     else
                                     {
-                                        <a data-bs-target="#assignModal" data-bs-toggle="modal" class="btn btn-primary p-2">Assign</a>
+                                        <a data-bs-target="#assignModal" data-bs-toggle="modal" class="btn btn-lg btn-primary m-2" style="color: white">Assign</a>
                                     }
 
                                     <p>Submitter: <span>@Model.SubmitterUser?.FullName</span></p>
@@ -298,7 +301,7 @@
                                                         </div>
                                                         <div class="ql-wrapper ql-wrapper-demo mb-3">
                                                             <label asp-for="Description" class="control-label"></label>
-                                                            <input asp-for="Description" id="quillEditor" />
+                                                            <textarea asp-for="Description" id="summernote" ></textarea>
                                                         </div>
                                                     </div>
                                                     <input type="submit" value="Edit" class="btn btn-primary" />
@@ -376,5 +379,12 @@
                 text: message
             });
         }
+    </script>
+    <script>
+        $('#summernote').summernote({
+            placeholder: 'Hello bootstrap 4',
+            tabsize: 3,
+            height: 300
+        });
     </script>
 }

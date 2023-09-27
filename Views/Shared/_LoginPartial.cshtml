@@ -26,9 +26,9 @@
                 <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">
                     <i class="fe fe-settings"></i> Account Settings
                 </a>
-                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
                     <i class="fe fe-log-out"></i>Logout
-                </a>
+                </form>
             </div>
         </div>
     }

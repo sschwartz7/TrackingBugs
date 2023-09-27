@@ -137,14 +137,16 @@
                             </div>
                             <div class="main-content-body tab-pane p-4 border-top-0" id="members">
                                 <div class="card-body border pd-b-10">
+                                    <div class="row d-flex align-content-end">
                                     @if (User.IsInRole("ProjectManager") || User.IsInRole("Admin"))
                                     {
-                                        <a data-bs-target="#assignMembersModal" data-bs-toggle="modal" class="btn btn-primary p-2">Assign Members</a>
+                                        <a data-bs-target="#assignMembersModal" data-bs-toggle="modal" class="btn btn-lg btn-primary m-2" style="color: white">Assign Members</a>
                                     }
                                     @if (User.IsInRole("Admin"))
                                     {
-                                        <a data-bs-target="#assignManagerModal" data-bs-toggle="modal" class="btn btn-primary p-2">Assign Manager</a>
+                                            <a data-bs-target="#assignManagerModal" data-bs-toggle="modal" class="btn btn-lg btn-primary m-2" style="color: white">Assign Manager</a>
                                     }
+                                    </div>
                                     <!-- row -->
                                     <div class="row row-sm">
                                         <h5>Project Managers</h5>
@@ -273,7 +275,7 @@
                                             </div>
                                             <div class="ql-wrapper ql-wrapper-demo mb-3">
                                                 <label asp-for="Description" class="control-label"></label>
-                                                <input asp-for="Description" id="quillEditor" />
+                                                <textarea asp-for="Description" id="summernote" ></textarea>
                                             </div>
                                             <div class="row">
 
@@ -286,11 +288,11 @@
                                             <input type="hidden" asp-for="Id" />
                                             @if (Model.Archived == true)
                                             {
-                                                <input type="submit" class="btn btn-outline-success" value="Unarchive">
+                                                <input type="submit" class="btn btn-success" value="Unarchive">
                                             }
                                             else
                                             {
-                                                <input type="submit" class="btn btn-outline-danger" value="Archive">
+                                                <input type="submit" class="btn btn-danger" value="Archive">
                                             }
                                         </form>
                                     </div>
@@ -396,6 +398,14 @@
                 sSearch: '',
                 lengthMenu: '_MENU_ items/page',
             }
+        });
+    </script>
+
+    <script>
+        $('#summernote').summernote({
+            placeholder: '@Model.Description',
+            tabsize: 3,
+            height: 300
         });
     </script>
 }

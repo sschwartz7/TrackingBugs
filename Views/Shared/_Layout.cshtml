@@ -46,9 +46,9 @@
     <!-- Mutipleselect css-->
     <link rel="stylesheet" href="~/assets/plugins/multipleselect/multiple-select.css">
 
-    <!-- Internal Quill css-->
-    <link href="~/assets/plugins/quill/quill.snow.css" rel="stylesheet">
-    <link href="~/assets/plugins/quill/quill.bubble.css" rel="stylesheet">
+    <!-- Internal Summernote css-->
+    <link rel="stylesheet" href="~/assets/plugins/summernote-editor/summernote.css">
+    <link rel="stylesheet" href="~/assets/plugins/summernote-editor/summernote1.css">
 
     <!-- DATA TABLE CSS -->
     <link href="~/assets/plugins/datatable/css/dataTables.bootstrap5.css" rel="stylesheet" />
@@ -217,7 +217,7 @@
                                     <li class="nav-sub-item"><a class="nav-sub-link" asp-action="Index" asp-controller="Tickets">All Tickets</a></li>
                                     @if (User.IsInRole("Submitter") || User.IsInRole("ProjectManager") || User.IsInRole("Developer"))
                                     {
-                                        <li class="nav-sub-item"><a class="nav-sub-link" asp-action="ActiveTicketsByMember" asp-controller="Tickets">My Projects</a></li>
+                                        <li class="nav-sub-item"><a class="nav-sub-link" asp-action="ActiveTicketsByMember" asp-controller="Tickets">My Tickets</a></li>
                                     }
                                     @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
                                     {
@@ -315,14 +315,9 @@
     <!-- Sticky js -->
     <script src="~/assets/js/sticky.js"></script>
 
-    <!-- Internal Quill js-->
-    <script src="~/assets/plugins/quill/quill.min.js"></script>
-
-    <!-- Internal Accordion-Wizard-Form js-->
-    <script src="~/assets/plugins/accordion-Wizard-Form/jquery.accordion-wizard.min.js"></script>
-
-    <!-- Internal Form-wizard js-->
-    <script src="~/assets/js/form-wizard.js"></script>
+    <!-- INTERNAL Summernote Editor js -->
+    <script src="~/assets/plugins/summernote-editor/summernote1.js"></script>
+    <script src="~/assets/js/summernote.js"></script>
 
     <!-- Internal Form-editor js-->
     <script src="~/assets/js/form-editor.js"></script>
