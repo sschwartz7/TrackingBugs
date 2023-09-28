@@ -3,29 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TrackingBugs.Data;
 using TrackingBugs.Models;
+using TrackingBugs.Services;
+using TrackingBugs.Services.Interfaces;
 
 namespace TrackingBugs.Controllers
 {
     [Authorize]
-    public class NotificationsController : Controller
+    public class NotificationsController : BTBaseController
     {
         private readonly ApplicationDbContext _context;
+        private readonly IBTNotificationService _NotificationService;
+        private readonly UserManager<BTUser> _userManager;
 
-        public NotificationsController(ApplicationDbContext context)
+        public NotificationsController(ApplicationDbContext context, IBTNotificationService notificationService, UserManager<BTUser> userManager)
         {
             _context = context;
+            _NotificationService = notificationService;
+            _userManager = userManager;
         }
 
         // GET: Notifications
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Notifications.Include(n => n.NotificationType).Include(n => n.Project).Include(n => n.Recipient).Include(n => n.Sender).Include(n => n.Ticket);
-            return View(await applicationDbContext.ToListAsync());
+           List<Notification> notifications = await _NotificationService.GetNotificationsByUserIdAsync(_userManager.GetUserId(User));
+            return View(notifications);
         }
 
         // GET: Notifications/Details/5
@@ -189,6 +196,14 @@ namespace TrackingBugs.Controllers
         private bool NotificationExists(int id)
         {
           return (_context.Notifications?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+        // POST: Notifications/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> View(int id)
+        {
+            await _NotificationService.ViewNotificationAsync(id, _userManager.GetUserId(User));
+            return RedirectToAction(nameof(Index));
         }
     }
 }

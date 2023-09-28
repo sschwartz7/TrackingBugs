@@ -1,4 +1,5 @@
-﻿using TrackingBugs.Enums;
+﻿using Org.BouncyCastle.Bcpg.OpenPgp;
+using TrackingBugs.Enums;
 using TrackingBugs.Models;
 
 namespace TrackingBugs.Services.Interfaces
@@ -20,6 +21,8 @@ namespace TrackingBugs.Services.Interfaces
         public Task<bool> SendEmailNotificationAsync(Notification? notification, string? emailSubject);
 
         public Task<bool> TicketUpdateNotificationAsync(int? ticketId, string? developerId, string? senderId = null);
+
+        public Task ViewNotificationAsync(int? id, string recipientId);
 
     }
 }

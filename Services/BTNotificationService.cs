@@ -45,13 +45,23 @@ namespace TrackingBugs.Services
                 throw;
             }
         }
-        public async Task ViewNotificationAsync(Notification? notification)
+        public async Task ViewNotificationAsync(int? id, string recipientId)
         {
             try
             {
-                if (notification == null) { return; }
-                notification.HasBeenViewed = true;
-                await _context.SaveChangesAsync();
+                if (id == null && id == 0) { return; }
+                Notification? notification = await _context.Notifications
+                                                  .Where(n => n.HasBeenViewed == false)
+                                                  .Where(n => n.Id == id)
+                                                  .Where(n => n.RecipientId == recipientId)
+                                                  .FirstOrDefaultAsync();
+                if (notification != null)
+                {
+                    notification.HasBeenViewed = true;
+                    await _context.SaveChangesAsync();
+                }
+              
+
             }
             catch (Exception)
             {
@@ -95,10 +105,15 @@ namespace TrackingBugs.Services
                 {
 
                     notifications = await _context.Notifications
-                                                  .Where(n => n.RecipientId == userId || n.SenderId == userId)
+                                                  .Where(n => n.RecipientId == userId)
+                                                  //.Where(n.SenderId == userId)
                                                   .Where(n => n.HasBeenViewed == false)
                                                   .Include(n => n.Recipient)
                                                   .Include(n => n.Sender)
+                                                  .Include(n => n.Project)
+                                                  .Include(n => n.NotificationType)
+                                                  .Include(n => n.Ticket)
+                                                    .ThenInclude(t => t.Project)
                                                   .ToListAsync();
                 }
 
