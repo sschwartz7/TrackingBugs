@@ -15,10 +15,10 @@ namespace TrackingBugs.Data
     public static class DataUtility
     {
         private static int company1Id;
-        private static int company2Id;
-        private static int company3Id;
-        private static int company4Id;
-        private static int company5Id;
+        //private static int company2Id;
+        //private static int company3Id;
+        //private static int company4Id;
+        //private static int company5Id;
 
         private static int portfolioId;
         private static int blogId;
@@ -98,10 +98,10 @@ namespace TrackingBugs.Data
             {
                 IList<Company> defaultcompanies = new List<Company>() {
                     new Company() { Name = "Company1", Description="This is default Company 1" },
-                    new Company() { Name = "Company2", Description="This is default Company 2" },
-                    new Company() { Name = "Company3", Description="This is default Company 3" },
-                    new Company() { Name = "Company4", Description="This is default Company 4" },
-                    new Company() { Name = "Company5", Description="This is default Company 5" }
+                    //new Company() { Name = "Company2", Description="This is default Company 2" },
+                    //new Company() { Name = "Company3", Description="This is default Company 3" },
+                    //new Company() { Name = "Company4", Description="This is default Company 4" },
+                    //new Company() { Name = "Company5", Description="This is default Company 5" }
                 };
 
                 var dbCompanies = context.Companies.Select(c => c.Name).ToList();
@@ -110,10 +110,10 @@ namespace TrackingBugs.Data
 
                 //Get company Ids
                 company1Id = context.Companies.FirstOrDefault(p => p.Name == "Company1")!.Id;
-                company2Id = context.Companies.FirstOrDefault(p => p.Name == "Company2")!.Id;
-                company3Id = context.Companies.FirstOrDefault(p => p.Name == "Company3")!.Id;
-                company4Id = context.Companies.FirstOrDefault(p => p.Name == "Company4")!.Id;
-                company5Id = context.Companies.FirstOrDefault(p => p.Name == "Company5")!.Id;
+                //company2Id = context.Companies.FirstOrDefault(p => p.Name == "Company2")!.Id;
+                //company3Id = context.Companies.FirstOrDefault(p => p.Name == "Company3")!.Id;
+                //company4Id = context.Companies.FirstOrDefault(p => p.Name == "Company4")!.Id;
+                //company5Id = context.Companies.FirstOrDefault(p => p.Name == "Company5")!.Id;
             }
             catch (Exception ex)
             {
@@ -164,7 +164,7 @@ namespace TrackingBugs.Data
                 FirstName = "Steve",
                 LastName = "Appuser",
                 EmailConfirmed = true,
-                CompanyId = company2Id
+                CompanyId = company1Id
             };
             try
             {
@@ -222,7 +222,7 @@ namespace TrackingBugs.Data
                 FirstName = "Jane",
                 LastName = "Appuser",
                 EmailConfirmed = true,
-                CompanyId = company2Id
+                CompanyId = company1Id
             };
             try
             {
@@ -280,7 +280,7 @@ namespace TrackingBugs.Data
                 FirstName = "James",
                 LastName = "Appuser",
                 EmailConfirmed = true,
-                CompanyId = company2Id
+                CompanyId = company1Id
             };
             try
             {
@@ -338,7 +338,7 @@ namespace TrackingBugs.Data
                 FirstName = "Carol",
                 LastName = "Appuser",
                 EmailConfirmed = true,
-                CompanyId = company2Id
+                CompanyId = company1Id
             };
             try
             {
@@ -395,7 +395,7 @@ namespace TrackingBugs.Data
                 FirstName = "Bruce",
                 LastName = "Appuser",
                 EmailConfirmed = true,
-                CompanyId = company2Id
+                CompanyId = company1Id
             };
             try
             {
@@ -452,7 +452,7 @@ namespace TrackingBugs.Data
                 FirstName = "Sue",
                 LastName = "Appuser",
                 EmailConfirmed = true,
-                CompanyId = company2Id
+                CompanyId = company1Id
             };
             try
             {
@@ -520,7 +520,7 @@ namespace TrackingBugs.Data
                 FirstName = "Demo",
                 LastName = "ProjectManager",
                 EmailConfirmed = true,
-                CompanyId = company2Id
+                CompanyId = company1Id
             };
             try
             {
@@ -551,7 +551,7 @@ namespace TrackingBugs.Data
                 FirstName = "Demo",
                 LastName = "Developer",
                 EmailConfirmed = true,
-                CompanyId = company2Id
+                CompanyId = company1Id
             };
             try
             {
@@ -582,7 +582,7 @@ namespace TrackingBugs.Data
                 FirstName = "Demo",
                 LastName = "Submitter",
                 EmailConfirmed = true,
-                CompanyId = company2Id
+                CompanyId = company1Id
             };
             try
             {
@@ -612,7 +612,7 @@ namespace TrackingBugs.Data
                 FirstName = "Demo",
                 LastName = "NewUser",
                 EmailConfirmed = true,
-                CompanyId = company2Id
+                CompanyId = company1Id
             };
             try
             {
@@ -684,7 +684,7 @@ namespace TrackingBugs.Data
                      },
                      new Project()
                      {
-                         CompanyId = company2Id,
+                         CompanyId = company1Id,
                          Name = "Build a supplemental Blog Web Application",
                          Description="Candidate's custom built web application using .Net Core with MVC, a postgres database and hosted in a heroku container.  The app is designed for the candidate to create, update and maintain a live blog site.",
                          Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc),
@@ -704,7 +704,7 @@ namespace TrackingBugs.Data
                      },
                      new Project()
                      {
-                         CompanyId = company2Id,
+                         CompanyId = company1Id,
                          Name = "Build an Address Book Web Application",
                          Description="A custom designed .Net Core application with postgres database.  This is an application to serve as a rolodex of contacts for a given user..",
                          Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc),
@@ -876,23 +876,23 @@ namespace TrackingBugs.Data
                                 new Ticket() {SubmitterUserId=company1AdminId, Title = "Portfolio Ticket 7", Description = "Ticket details for portfolio ticket 7", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = portfolioId, TicketPriorityId = priorityHigh, TicketStatusId = statusDev, TicketTypeId = typeEnhancement},
                                 new Ticket() {SubmitterUserId=company1AdminId, Title = "Portfolio Ticket 8", Description = "Ticket details for portfolio ticket 8", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = portfolioId, TicketPriorityId = priorityUrgent, TicketStatusId = statusTest, TicketTypeId = typeDefect},
                                 //BLOG
-                                new Ticket() {SubmitterUserId = company2AdminId, Title = "Blog Ticket 1", Description = "Ticket details for blog ticket 1", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityLow, TicketStatusId = statusNew, TicketTypeId = typeDefect},
-                                new Ticket() {SubmitterUserId = company2AdminId, Title = "Blog Ticket 2", Description = "Ticket details for blog ticket 2", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityMedium, TicketStatusId = statusDev, TicketTypeId = typeEnhancement},
-                                new Ticket() {SubmitterUserId = company2AdminId, Title = "Blog Ticket 3", Description = "Ticket details for blog ticket 3", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityHigh, TicketStatusId = statusNew, TicketTypeId = typeChangeRequest},
-                                new Ticket() {SubmitterUserId = company2AdminId, Title = "Blog Ticket 4", Description = "Ticket details for blog ticket 4", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityUrgent, TicketStatusId = statusNew, TicketTypeId = typeNewDev},
-                                new Ticket() {SubmitterUserId = company2AdminId, Title = "Blog Ticket 5", Description = "Ticket details for blog ticket 5", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityLow, TicketStatusId = statusDev,  TicketTypeId = typeDefect},
-                                new Ticket() {SubmitterUserId = company2AdminId, Title = "Blog Ticket 6", Description = "Ticket details for blog ticket 6", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityMedium, TicketStatusId = statusNew,  TicketTypeId = typeEnhancement},
-                                new Ticket() {SubmitterUserId = company2AdminId, Title = "Blog Ticket 7", Description = "Ticket details for blog ticket 7", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityHigh, TicketStatusId = statusNew, TicketTypeId = typeChangeRequest},
-                                new Ticket() {SubmitterUserId = company2AdminId, Title = "Blog Ticket 8", Description = "Ticket details for blog ticket 8", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityUrgent, TicketStatusId = statusDev,  TicketTypeId = typeNewDev},
-                                new Ticket() {SubmitterUserId = company2AdminId, Title = "Blog Ticket 9", Description = "Ticket details for blog ticket 9", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityLow, TicketStatusId = statusNew,  TicketTypeId = typeDefect},
-                                new Ticket() {SubmitterUserId = company2AdminId, Title = "Blog Ticket 10", Description = "Ticket details for blog ticket 10", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityMedium, TicketStatusId = statusNew, TicketTypeId = typeEnhancement},
-                                new Ticket() {SubmitterUserId = company2AdminId, Title = "Blog Ticket 11", Description = "Ticket details for blog ticket 11", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityHigh, TicketStatusId = statusDev,  TicketTypeId = typeChangeRequest},
-                                new Ticket() {SubmitterUserId = company2AdminId, Title = "Blog Ticket 12", Description = "Ticket details for blog ticket 12", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityUrgent, TicketStatusId = statusNew,  TicketTypeId = typeNewDev},
-                                new Ticket() {SubmitterUserId = company2AdminId, Title = "Blog Ticket 13", Description = "Ticket details for blog ticket 13", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityLow, TicketStatusId = statusNew, TicketTypeId = typeDefect},
-                                new Ticket() {SubmitterUserId = company2AdminId, Title = "Blog Ticket 14", Description = "Ticket details for blog ticket 14", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityMedium, TicketStatusId = statusDev,  TicketTypeId = typeEnhancement},
-                                new Ticket() {SubmitterUserId = company2AdminId, Title = "Blog Ticket 15", Description = "Ticket details for blog ticket 15", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityHigh, TicketStatusId = statusNew,  TicketTypeId = typeChangeRequest},
-                                new Ticket() {SubmitterUserId = company2AdminId, Title = "Blog Ticket 16", Description = "Ticket details for blog ticket 16", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityUrgent, TicketStatusId = statusNew, TicketTypeId = typeNewDev},
-                                new Ticket() {SubmitterUserId = company2AdminId, Title = "Blog Ticket 17", Description = "Ticket details for blog ticket 17", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityHigh, TicketStatusId = statusDev,  TicketTypeId = typeNewDev},
+                                new Ticket() {SubmitterUserId = company1AdminId, Title = "Blog Ticket 1", Description = "Ticket details for blog ticket 1", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityLow, TicketStatusId = statusNew, TicketTypeId = typeDefect},
+                                new Ticket() {SubmitterUserId = company1AdminId, Title = "Blog Ticket 2", Description = "Ticket details for blog ticket 2", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityMedium, TicketStatusId = statusDev, TicketTypeId = typeEnhancement},
+                                new Ticket() {SubmitterUserId = company1AdminId, Title = "Blog Ticket 3", Description = "Ticket details for blog ticket 3", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityHigh, TicketStatusId = statusNew, TicketTypeId = typeChangeRequest},
+                                new Ticket() {SubmitterUserId = company1AdminId, Title = "Blog Ticket 4", Description = "Ticket details for blog ticket 4", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityUrgent, TicketStatusId = statusNew, TicketTypeId = typeNewDev},
+                                new Ticket() {SubmitterUserId = company1AdminId, Title = "Blog Ticket 5", Description = "Ticket details for blog ticket 5", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityLow, TicketStatusId = statusDev,  TicketTypeId = typeDefect},
+                                new Ticket() {SubmitterUserId = company1AdminId, Title = "Blog Ticket 6", Description = "Ticket details for blog ticket 6", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityMedium, TicketStatusId = statusNew,  TicketTypeId = typeEnhancement},
+                                new Ticket() {SubmitterUserId = company1AdminId, Title = "Blog Ticket 7", Description = "Ticket details for blog ticket 7", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityHigh, TicketStatusId = statusNew, TicketTypeId = typeChangeRequest},
+                                new Ticket() {SubmitterUserId = company1AdminId, Title = "Blog Ticket 8", Description = "Ticket details for blog ticket 8", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityUrgent, TicketStatusId = statusDev,  TicketTypeId = typeNewDev},
+                                new Ticket() {SubmitterUserId = company1AdminId, Title = "Blog Ticket 9", Description = "Ticket details for blog ticket 9", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityLow, TicketStatusId = statusNew,  TicketTypeId = typeDefect},
+                                new Ticket() {SubmitterUserId = company1AdminId, Title = "Blog Ticket 10", Description = "Ticket details for blog ticket 10", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityMedium, TicketStatusId = statusNew, TicketTypeId = typeEnhancement},
+                                new Ticket() {SubmitterUserId = company1AdminId, Title = "Blog Ticket 11", Description = "Ticket details for blog ticket 11", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityHigh, TicketStatusId = statusDev,  TicketTypeId = typeChangeRequest},
+                                new Ticket() {SubmitterUserId = company1AdminId, Title = "Blog Ticket 12", Description = "Ticket details for blog ticket 12", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityUrgent, TicketStatusId = statusNew,  TicketTypeId = typeNewDev},
+                                new Ticket() {SubmitterUserId = company1AdminId, Title = "Blog Ticket 13", Description = "Ticket details for blog ticket 13", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityLow, TicketStatusId = statusNew, TicketTypeId = typeDefect},
+                                new Ticket() {SubmitterUserId = company1AdminId, Title = "Blog Ticket 14", Description = "Ticket details for blog ticket 14", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityMedium, TicketStatusId = statusDev,  TicketTypeId = typeEnhancement},
+                                new Ticket() {SubmitterUserId = company1AdminId, Title = "Blog Ticket 15", Description = "Ticket details for blog ticket 15", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityHigh, TicketStatusId = statusNew,  TicketTypeId = typeChangeRequest},
+                                new Ticket() {SubmitterUserId = company1AdminId, Title = "Blog Ticket 16", Description = "Ticket details for blog ticket 16", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityUrgent, TicketStatusId = statusNew, TicketTypeId = typeNewDev},
+                                new Ticket() {SubmitterUserId = company1AdminId, Title = "Blog Ticket 17", Description = "Ticket details for blog ticket 17", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = blogId, TicketPriorityId = priorityHigh, TicketStatusId = statusDev,  TicketTypeId = typeNewDev},
                                 //BUGTRACKER                                                                                                                         
                                 new Ticket() {SubmitterUserId=company1AdminId, Title = "Bug Tracker Ticket 1", Description = "Ticket details for bug tracker ticket 1", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = bugtrackerId, TicketPriorityId = priorityHigh, TicketStatusId = statusNew, TicketTypeId = typeNewDev},
                                 new Ticket() {SubmitterUserId=company1AdminId, Title = "Bug Tracker Ticket 2", Description = "Ticket details for bug tracker ticket 2", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = bugtrackerId, TicketPriorityId = priorityHigh, TicketStatusId = statusNew, TicketTypeId = typeNewDev},
@@ -946,14 +946,14 @@ namespace TrackingBugs.Data
                                 new Ticket() {SubmitterUserId = company1AdminId, Title = "Movie Ticket 19", Description = "Ticket details for movie ticket 19", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = movieId, TicketPriorityId = priorityHigh, TicketStatusId = statusNew,  TicketTypeId = typeChangeRequest},
                                 new Ticket() {SubmitterUserId = company1AdminId, Title = "Movie Ticket 20", Description = "Ticket details for movie ticket 20", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = movieId, TicketPriorityId = priorityUrgent, TicketStatusId = statusNew, TicketTypeId = typeNewDev},
                                 //ADDRESSBOOK
-                                new Ticket() {SubmitterUserId=company2AdminId, Title = "AddressBook Ticket 1", Description = "Ticket details for addressbook ticket 1", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = addressbookId, TicketPriorityId = priorityLow, TicketStatusId = statusNew, TicketTypeId = typeNewDev},
-                                new Ticket() {SubmitterUserId=company2AdminId, Title = "AddressBook Ticket 2", Description = "Ticket details for addressbook ticket 2", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = addressbookId, TicketPriorityId = priorityMedium, TicketStatusId = statusNew, TicketTypeId = typeChangeRequest},
-                                new Ticket() {SubmitterUserId=company2AdminId, Title = "AddressBook Ticket 3", Description = "Ticket details for addressbook ticket 3", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = addressbookId, TicketPriorityId = priorityHigh, TicketStatusId = statusDev, TicketTypeId = typeEnhancement},
-                                new Ticket() {SubmitterUserId=company2AdminId, Title = "AddressBook Ticket 4", Description = "Ticket details for addressbook ticket 4", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = addressbookId, TicketPriorityId = priorityUrgent, TicketStatusId = statusTest, TicketTypeId = typeDefect},
-                                new Ticket() {SubmitterUserId=company2AdminId, Title = "AddressBook Ticket 5", Description = "Ticket details for addressbook ticket 5", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = addressbookId, TicketPriorityId = priorityLow, TicketStatusId = statusNew, TicketTypeId = typeNewDev},
-                                new Ticket() {SubmitterUserId=company2AdminId, Title = "AddressBook Ticket 6", Description = "Ticket details for addressbook ticket 6", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = addressbookId, TicketPriorityId = priorityMedium, TicketStatusId = statusNew, TicketTypeId = typeChangeRequest},
-                                new Ticket() {SubmitterUserId=company2AdminId, Title = "AddressBook Ticket 7", Description = "Ticket details for addressbook ticket 7", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = addressbookId, TicketPriorityId = priorityHigh, TicketStatusId = statusDev, TicketTypeId = typeEnhancement},
-                                new Ticket() {SubmitterUserId=company2AdminId, Title = "AddressBook Ticket 8", Description = "Ticket details for addressbook ticket 8", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = addressbookId, TicketPriorityId = priorityUrgent, TicketStatusId = statusTest, TicketTypeId = typeDefect},
+                                new Ticket() {SubmitterUserId=company1AdminId, Title = "AddressBook Ticket 1", Description = "Ticket details for addressbook ticket 1", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = addressbookId, TicketPriorityId = priorityLow, TicketStatusId = statusNew, TicketTypeId = typeNewDev},
+                                new Ticket() {SubmitterUserId=company1AdminId, Title = "AddressBook Ticket 2", Description = "Ticket details for addressbook ticket 2", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = addressbookId, TicketPriorityId = priorityMedium, TicketStatusId = statusNew, TicketTypeId = typeChangeRequest},
+                                new Ticket() {SubmitterUserId=company1AdminId, Title = "AddressBook Ticket 3", Description = "Ticket details for addressbook ticket 3", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = addressbookId, TicketPriorityId = priorityHigh, TicketStatusId = statusDev, TicketTypeId = typeEnhancement},
+                                new Ticket() {SubmitterUserId=company1AdminId, Title = "AddressBook Ticket 4", Description = "Ticket details for addressbook ticket 4", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = addressbookId, TicketPriorityId = priorityUrgent, TicketStatusId = statusTest, TicketTypeId = typeDefect},
+                                new Ticket() {SubmitterUserId=company1AdminId, Title = "AddressBook Ticket 5", Description = "Ticket details for addressbook ticket 5", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = addressbookId, TicketPriorityId = priorityLow, TicketStatusId = statusNew, TicketTypeId = typeNewDev},
+                                new Ticket() {SubmitterUserId=company1AdminId, Title = "AddressBook Ticket 6", Description = "Ticket details for addressbook ticket 6", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = addressbookId, TicketPriorityId = priorityMedium, TicketStatusId = statusNew, TicketTypeId = typeChangeRequest},
+                                new Ticket() {SubmitterUserId=company1AdminId, Title = "AddressBook Ticket 7", Description = "Ticket details for addressbook ticket 7", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = addressbookId, TicketPriorityId = priorityHigh, TicketStatusId = statusDev, TicketTypeId = typeEnhancement},
+                                new Ticket() {SubmitterUserId=company1AdminId, Title = "AddressBook Ticket 8", Description = "Ticket details for addressbook ticket 8", Created = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc), ProjectId = addressbookId, TicketPriorityId = priorityUrgent, TicketStatusId = statusTest, TicketTypeId = typeDefect},
 
 
                 };
