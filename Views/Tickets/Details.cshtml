@@ -40,7 +40,7 @@
                             <div class="panel profile-cover">
                                 
                                 <div class="profile-cover__img">
-                                    <img src="~/assets/img/users/1.jpg" alt="img" />
+                                    <img src="@_BTFileService.ConvertByteArrayToFile(Model.Project.ImageFileData,Model.Project.ImageFileType, DefaultImage.CompanyImage)" alt="img" />
                                     <h3 class="h3">@Model.Title</h3>
                                 </div>
                                 <div class="profile-cover__action bg-img"></div>

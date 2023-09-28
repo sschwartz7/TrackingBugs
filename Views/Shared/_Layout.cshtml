@@ -232,12 +232,13 @@
                                     <span class="shape2"></span>
                                     @if((await _NotificationService.GetNotificationsByUserIdAsync(appUser.Id)).Count() != 0)
                                     {
-                                        <i class="ti-email sidemenu-icon menu-icon "></i>
+                                        <i class="ti-email sidemenu-icon menu-icon "
+                                           style="color:red !important;"></i>
                                     }
                                     else
                                     {
                                         <i class="ti-email sidemenu-icon menu-icon"
-                                           style="color:red !important; "></i>
+                                           ></i>
                                     }
                                     <span class="sidemenu-label">Notifications</span>
                                 </a>

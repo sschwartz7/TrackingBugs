@@ -2,6 +2,7 @@
 @inject SignInManager<BTUser> SignInManager
 @inject UserManager<BTUser> UserManager
 @inject IBTRoleService _RoleService
+@inject IBTFileService _BTFileService
 
 @{
     BTUser? appUser = await UserManager.GetUserAsync(User);
@@ -14,7 +15,7 @@
             <a class="d-flex" href="javascript:void(0)">
                 <span class="main-img-user">
                     <img alt="avatar"
-                         src="~/assets/img/users/1.jpg">
+                         src="@_BTFileService.ConvertByteArrayToFile(appUser?.ImageFileData,appUser?.ImageFileType, DefaultImage.BTUserImage)">
                 </span>
             </a>
             <div class="dropdown-menu">
