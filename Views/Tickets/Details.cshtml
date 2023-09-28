@@ -40,7 +40,7 @@
                             <div class="panel profile-cover">
                                 
                                 <div class="profile-cover__img">
-                                    <img src="@_BTFileService.ConvertByteArrayToFile(Model.Project.ImageFileData,Model.Project.ImageFileType, DefaultImage.CompanyImage)" alt="img" />
+                                    <img src="@_BTFileService.ConvertByteArrayToFile(Model.Project.ImageFileData,Model.Project.ImageFileType, DefaultImage.ProjectImage)" alt="img" />
                                     <h3 class="h3">@Model.Title</h3>
                                 </div>
                                 <div class="profile-cover__action bg-img"></div>
@@ -124,7 +124,6 @@
                                                         <p>The ticket <b>@history.PropertyName</b> was edited</p>
                                                         <p>@($"Previous {history.PropertyName}: ") <span style="color:red">@history.OldValue</span></p>
                                                         <p>@($"Current {history.PropertyName}: ") <span style="color:green">@history.NewValue</span></p>
-
                                                     }
                                                 </div>
                                             </div>

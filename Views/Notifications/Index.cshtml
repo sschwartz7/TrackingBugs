@@ -2,6 +2,7 @@
 @model IEnumerable<TrackingBugs.Models.Notification>
 @inject UserManager<BTUser> UserManager
 @inject IBTNotificationService BTNotificationService
+@inject IBTFileService _BTFileService
 
 @{
     BTUser? appUser = await UserManager.GetUserAsync(User);
@@ -12,28 +13,31 @@
 
     <div class="main-container container-fluid">
         <div class="inner-body">
-
-                        <!-- Page Header -->
-                        <div class="page-header">
-                            <div>
-                                <h2 class="main-content-title tx-24 mg-b-5">Notifications</h2>
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item active"><a href="#">Notifications</a></li>
-                                </ol>
-                            </div>
-                        </div>
-                        <!-- End Page Header -->
-
+            <!-- Page Header -->
+            <div class="page-header">
+                <div>
+                    <h2 class="main-content-title tx-24 mg-b-5">Notifications</h2>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active"><a href="#">Notifications</a></li>
+                    </ol>
+                </div>
+            </div>
+            <!-- End Page Header -->
             <div class="row square">
                 <div class="col-lg-12 col-md-12">
                     <div class="card custom-card">
                         <div class="card-body">
                             <div class="panel profile-cover">
                                 <div class="profile-cover__img">
-                                    <img src="~/assets/img/users/1.jpg" alt="img" />
+                                    <img src="@_BTFileService.ConvertByteArrayToFile(appUser.ImageFileData,appUser.ImageFileType, DefaultImage.BTUserImage)" alt="img" />
                                     <h3 class="h3">@appUser.FullName</h3>
                                 </div>
                                 <div class="profile-cover__action bg-img"></div>
+                                <div class="profile-cover__info">
+                                    <ul class="nav">
+                                        <li><strong>Notification Count:</strong> <span>  @Model.Count()</</span></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -86,9 +90,12 @@
                                                             @Html.DisplayFor(modelItem => notification.Created)
                                                         </td>
                                                         <td>
-                                                            @if(notification.NotificationType!.Name == nameof(BTNotificationType.Project)){
+                                                            @if (notification.NotificationType!.Name == nameof(BTNotificationType.Project))
+                                                            {
                                                                 @notification.Project!.Name
-                                                            }else{
+                                                            }
+                                                            else
+                                                            {
                                                                 @notification.Ticket!.Title
                                                             }
                                                         </td>

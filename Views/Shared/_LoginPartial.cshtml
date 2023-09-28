@@ -15,21 +15,21 @@
             <a class="d-flex" href="javascript:void(0)">
                 <span class="main-img-user">
                     <img alt="avatar"
-                         src="@_BTFileService.ConvertByteArrayToFile(appUser?.ImageFileData,appUser?.ImageFileType, DefaultImage.BTUserImage)">
+                         src="@_BTFileService.ConvertByteArrayToFile(appUser.ImageFileData,appUser.ImageFileType, DefaultImage.BTUserImage)">
                 </span>
             </a>
             <div class="dropdown-menu">
                 <div class="header-navheading">
-                    <h6 class="main-notification-title">
-                        @appUser?.FullName<h6>
-                            <p class="main-notification-text">@(string.Join(",", await _RoleService.GetUserRolesAsync(appUser)))</p>
+                        @appUser?.FullName
                 </div>
-                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">
-                    <i class="fe fe-settings"></i> Account Settings
-                </a>
-                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                    <i class="fe fe-log-out"></i><input type="submit" value="Logout"/>
-                </form>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Manage</a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
             </div>
         </div>
     }

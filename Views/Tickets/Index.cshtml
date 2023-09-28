@@ -62,14 +62,14 @@
                                         <input type="hidden" asp-for="@ticket.Id" name="id"/>
                                         @if (ticket.Archived == true)
                                         {
-                                            <input type="submit" class="btn btn-success" value="Unarchive">
+                                            <input type="submit" class="btn btn-success form-control" value="Unarchive">
                                         }
                                         else
                                         {
-                                            <input type="submit" class="btn btn-danger" value="Archive">
+                                            <input type="submit" class="btn btn-danger form-control m-2" value="Archive">
                                         }
                                     </form>
-                                    <a class="btn btn-primary px-2" asp-action="Details" asp-route-id="@ticket.Id">Details</a>
+                                    <a class="btn btn-primary m-2 form-control" asp-action="Details" asp-route-id="@ticket.Id">Details</a>
                                 </td>
 
                             </tr>
