@@ -74,7 +74,7 @@ namespace TrackingBugs.Controllers
 
         // GET: Projects/Create
         [Authorize(Roles = "Admin,ProjectManager")]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> CreateProject()
         {
             ViewData["CompanyId"] = new SelectList(_context.Companies, "Id", "Name");
             ViewData["ProjectPriorityId"] = new SelectList((await _projectService.GetProjectPrioritiesAsync()), "Id", "Name");
@@ -87,7 +87,7 @@ namespace TrackingBugs.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,ProjectManager")]
-        public async Task<IActionResult> Create([Bind("StartDate,EndDate,ProjectPriorityId,Name,Description")] Project project)
+        public async Task<IActionResult> CreateProject([Bind("StartDate,EndDate,ProjectPriorityId,Name,Description")] Project project)
         {
             if (ModelState.IsValid)
             {

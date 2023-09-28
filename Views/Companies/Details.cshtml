@@ -176,8 +176,6 @@
                                     <form asp-action="Edit">
                                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                         <input type="hidden" asp-for="Id" />
-                                        <input type="hidden" asp-for="ImageFileData" />
-                                        <input type="hidden" asp-for="ImageFileType" />
                                         <div class="form-group">
                                             <label asp-for="Name" class="control-label"></label>
                                             <input asp-for="Name" class="form-control" />
@@ -185,13 +183,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label asp-for="Description" class="control-label"></label>
-                                            <input asp-for="Description" class="form-control" />
-                                            <span asp-validation-for="Description" class="text-danger"></span>
+                                            <textarea asp-for="Description" id="summernote"></textarea>
                                         </div>
-                                        <div class="form-group">
-                                            <label asp-for="ImageFileType" class="control-label"></label>
-                                            <input asp-for="ImageFileType" class="form-control" />
-                                            <span asp-validation-for="ImageFileType" class="text-danger"></span>
+                                        <label class="">Project Image</label>
+                                        <div class="p-4 border rounded-6 mb-4 form-group">
+                                            <input asp-for="ImageFormFile" class="form-control" accept=".png,.jpg,.jpeg,.gif" onchange="document.getElementById('contactImage').src= window.URL.createObjectURL(this.files[0])" />
+                                            <span asp-validation-for="ImageFormFile" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
                                             <input type="submit" value="Save" class="btn btn-primary" />
@@ -233,6 +230,14 @@
             error: function (result) {
                 alert(result.d);
             }
+        });
+    </script>
+
+    <script>
+        $('#summernote').summernote({
+            placeholder: '@Model.Description',
+            tabsize: 3,
+            height: 300
         });
     </script>
     }

@@ -188,7 +188,7 @@
                                     <li class="side-menu-label1"><a href="javascript:void(0)">Projects</a></li>
                                     @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
                                     {
-                                    <li class="nav-sub-item"> <a class="nav-sub-link" asp-action="Create" asp-controller="Projects">New Project</a></li>
+                                    <li class="nav-sub-item"> <a class="nav-sub-link" asp-action="CreateProject" asp-controller="Projects">New Project</a></li>
                                     }
                                     <li class="nav-sub-item"><a class="nav-sub-link" asp-action="Index" asp-controller="Projects">All Projects</a></li>
                                     @if (User.IsInRole("Submitter") || User.IsInRole("ProjectManager") || User.IsInRole("Developer"))
@@ -213,7 +213,7 @@
                                 </a>
                                 <ul class="nav-sub">
                                     <li class="side-menu-label1"><a href="javascript:void(0)">Tickets</a></li>
-                                    <li class="nav-sub-item"><a class="nav-sub-link" asp-action="Create" asp-controller="Tickets">New Ticket</a></li>
+                                    <li class="nav-sub-item"><a class="nav-sub-link" asp-action="CreateTicket" asp-controller="Tickets">New Ticket</a></li>
                                     <li class="nav-sub-item"><a class="nav-sub-link" asp-action="Index" asp-controller="Tickets">All Tickets</a></li>
                                     @if (User.IsInRole("Submitter") || User.IsInRole("ProjectManager") || User.IsInRole("Developer"))
                                     {

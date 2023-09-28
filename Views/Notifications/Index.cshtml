@@ -73,40 +73,45 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach (var item in Model)
+                                                @foreach (Notification notification in Model)
                                                 {
                                                     <tr>
                                                         <td>
-                                                            @Html.DisplayFor(modelItem => item.Title)
+                                                            @Html.DisplayFor(modelItem => notification.Title)
                                                         </td>
                                                         <td>
-                                                            @Html.DisplayFor(modelItem => item.Message)
+                                                            @Html.DisplayFor(modelItem => notification.Message)
                                                         </td>
                                                         <td>
-                                                            @Html.DisplayFor(modelItem => item.Created)
+                                                            @Html.DisplayFor(modelItem => notification.Created)
                                                         </td>
                                                         <td>
-                                                            @if(item.NotificationType!.Name == nameof(BTNotificationType.Project)){
-                                                                @item.Project!.Name
+                                                            @if(notification.NotificationType!.Name == nameof(BTNotificationType.Project)){
+                                                                @notification.Project!.Name
                                                             }else{
-                                                                @item.Ticket!.Title
+                                                                @notification.Ticket!.Title
                                                             }
                                                         </td>
                                                         <td>
-                                                            @Html.DisplayFor(modelItem => item.Sender!.FullName)
+                                                            @Html.DisplayFor(modelItem => notification.Sender!.FullName)
                                                         </td>
                                                         <td>
-                                                            @Html.DisplayFor(modelItem => item.Recipient!.FullName)
+                                                            @Html.DisplayFor(modelItem => notification.Recipient!.FullName)
                                                         </td>
                                                         <td>
-                                                            @if (item.NotificationType!.Name == nameof(BTNotificationType.Project))
+
+                                                            @if (notification.NotificationType!.Name == nameof(BTNotificationType.Project))
                                                             {
-                                                                <a asp-action="Details" asp-route-id="@item.Project!.Id" asp-controller="Projects" class="btn btn-primary ripple btn-block">Details</a>
+                                                                <a asp-action="Details" asp-route-id="@notification.Project!.Id" asp-controller="Projects" class="btn btn-primary ripple btn-block">Details</a>
                                                             }
                                                             else
                                                             {
-                                                                <a asp-action="Details" asp-route-id="@item.Ticket!.Id" asp-controller="Tickets" class="btn btn-primary ripple btn-block">Details</a>
+                                                                <a asp-action="Details" asp-route-id="@notification.Ticket!.Id" asp-controller="Tickets" class="btn btn-primary ripple btn-block">Details</a>
                                                             }
+                                                            <form asp-action="View">
+                                                                <input type="hidden" asp-for="@notification.Id" name="id" />
+                                                                <input type="submit" value="View" class="btn btn-primary m-2" />
+                                                            </form>
                                                         </td>
                                                     </tr>
                                                 }

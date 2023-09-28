@@ -112,7 +112,7 @@ namespace TrackingBugs.Controllers
 
         // GET: Tickets/Create
 
-        public IActionResult Create()
+        public IActionResult CreateTicket()
         {
             ViewData["DeveloperUserId"] = new SelectList(_context.Users, "Id", "FullName");
             ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Name");
@@ -127,7 +127,7 @@ namespace TrackingBugs.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Description,Title,ProjectId,TicketTypeId,TicketStatusId,TicketPriorityId,DeveloperUserId")] Ticket ticket)
+        public async Task<IActionResult> CreateTicket([Bind("Description,Title,ProjectId,TicketTypeId,TicketStatusId,TicketPriorityId,DeveloperUserId")] Ticket ticket)
         {
             ModelState.Remove("SubmitterUserId");
 
