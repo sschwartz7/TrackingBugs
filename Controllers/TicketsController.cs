@@ -137,8 +137,7 @@ namespace TrackingBugs.Controllers
             {
                 ticket.Created = DateTime.Now;
                 ticket.SubmitterUserId = submitterId;
-                _context.Add(ticket);
-                await _context.SaveChangesAsync();
+                await _ticketService.AddTicketAsync(ticket);
 
             Ticket? newTicket = await _ticketService.GetTicketAsNoTrackingAsync(ticket.Id, _companyId);
 

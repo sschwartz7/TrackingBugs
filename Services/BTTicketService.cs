@@ -35,7 +35,6 @@ namespace TrackingBugs.Services
                 {
                     _context.Add(ticket);
                     await _context.SaveChangesAsync();
-                    return;
                 }
                 return;
             }

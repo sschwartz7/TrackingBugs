@@ -9,6 +9,7 @@ using TrackingBugs.Extensions;
 using TrackingBugs.Services.Interfaces;
 using TrackingBugs.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

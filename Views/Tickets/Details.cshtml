@@ -279,17 +279,17 @@
                                                     <div class="card-body">
                                                         <input type="hidden" asp-for="ProjectId" />
                                                         <div class="form-group">
-                                                            <label asp-for="TicketTypeId" class="control-label"></label>
+                                                            <label asp-for="TicketTypeId" class="control-label">Type</label>
                                                             <select asp-for="TicketTypeId" class="form-control" asp-items="ViewBag.TicketTypeId"></select>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label asp-for="TicketPriorityId" class="control-label"></label>
+                                                            <label asp-for="TicketPriorityId" class="control-label">Priority</label>
                                                             <select asp-for="TicketPriorityId" class="form-control" asp-items="ViewBag.TicketPriorityId"></select>
                                                         </div>
                                                         @if (User.IsInRole("Admin") || projectManager?.Id == UserManager.GetUserId(User))
                                                         {
                                                             <div class="form-group">
-                                                                <label asp-for="TicketStatusId" class="control-label"></label>
+                                                                <label asp-for="TicketStatusId" class="control-label">Status</label>
                                                                 <select asp-for="TicketStatusId" class="form-control" asp-items="ViewBag.TicketStatusId"></select>
                                                             </div>
                                                         }
