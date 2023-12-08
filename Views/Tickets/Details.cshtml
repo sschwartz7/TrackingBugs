@@ -277,7 +277,10 @@
                                             <div class="col-lg-12 col-md-12 col-md-12">
                                                 <div class="card custom-card">
                                                     <div class="card-body">
+                                                        <input type="hidden" asp-for="Id"/>
                                                         <input type="hidden" asp-for="ProjectId" />
+                                                        <input type="hidden" asp-for="SubmitterUserId"/>
+                                                        <input type="hidden" asp-for="Created"/>
                                                         <div class="form-group">
                                                             <label asp-for="TicketTypeId" class="control-label">Type</label>
                                                             <select asp-for="TicketTypeId" class="form-control" asp-items="ViewBag.TicketTypeId"></select>
@@ -292,6 +295,7 @@
                                                                 <label asp-for="TicketStatusId" class="control-label">Status</label>
                                                                 <select asp-for="TicketStatusId" class="form-control" asp-items="ViewBag.TicketStatusId"></select>
                                                             </div>
+                                                            <input type="hidden" asp-for="TicketStatus"/>
                                                         }
                                                         <div class="form-group">
                                                             <label asp-for="Title" class="control-label"></label>

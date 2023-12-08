@@ -183,7 +183,7 @@ namespace TrackingBugs.Controllers
             ViewData["TicketPriorityId"] = new SelectList(_context.Set<TicketPriority>(), "Id", "Name", ticket.TicketPriorityId);
             ViewData["TicketStatusId"] = new SelectList(_context.Set<TicketStatus>(), "Id", "Name", ticket.TicketStatusId);
             ViewData["TicketTypeId"] = new SelectList(_context.Set<TicketType>(), "Name", "Id", ticket.TicketTypeId);
-            return View( ticket);
+            return View(ticket);
         }
 
         // POST: Tickets/Edit/5
@@ -193,7 +193,8 @@ namespace TrackingBugs.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Created,Updated,ArchivedByProject,Description,Title,Archived,ProjectId,TicketTypeId,TicketStatusId,TicketPriorityId,DeveloperUserId,SubmitterUserId")] Ticket ticket)
         {
-            if (id != ticket.Id)
+            
+           if (id != ticket.Id)
             {
                 return NotFound();
             }
