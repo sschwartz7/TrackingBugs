@@ -157,7 +157,7 @@ namespace TrackingBugs.Controllers
                 try
                 {
                     string? adminEmail = _configuration["AdminEmailAdress"] ?? Environment.GetEnvironmentVariable("AdminEmailAddress");
-                    await _emailSender.SendEmailAsync(adminEmail!, $"Contact Me Message From - {btUser.Email}", message!);
+                    await _emailSender.SendEmailAsync(adminEmail!, $"Contact Me Message From - {btUser.FullName} - {btUser.Email}", message!);
                     swalMessage = "Email sent successfully!";
                 }
                 catch (Exception)
