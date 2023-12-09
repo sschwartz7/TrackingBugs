@@ -39,9 +39,9 @@ namespace TrackingBugs.Controllers
             _emailSender = emailSender;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? swalMessage = null)
         {
-
+            ViewData["SwalMessage"] = swalMessage;
             return View();
         }
         [Authorize]
@@ -166,10 +166,12 @@ namespace TrackingBugs.Controllers
                     throw;
                 }
 
+            }
+            else
+            {
                 swalMessage = "Error: Unable to send email.";
             }
-
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { swalMessage });
         }
     }
 }
